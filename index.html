@@ -11,14 +11,14 @@
     
     <style>
         :root {
-            --desk-bg: #e9e7e1; /* Meja terang seperti di referensi */
-            --craft-paper: #c59b71; /* Kertas cokelat buku scrapbook */
-            --craft-paper-dark: #b08861;
-            --paper-white: #fdfdfc;
+            --desk-bg: #f4f2ed; /* Meja linen terang premium dari foto referensi */
+            --craft-paper: #cda377; /* Kertas cokelat kraft tebal */
+            --craft-dark: #b88d60;
+            --paper-white: #fdfdfa;
             --rose-gold: #b26c6c;
             --ink: #2b211f;
-            --string-color: #f7ece1; /* Warna benang putih/krem seperti gambar */
-            --photo-corner: #d4b572; /* Warna siku-siku foto emas */
+            --gold-trim: linear-gradient(135deg, #e6c783 0%, #c49c48 50%, #96711b 100%);
+            --metal-ring: linear-gradient(90deg, #444 0%, #ccc 30%, #fff 55%, #999 75%, #222 100%);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
@@ -31,334 +31,378 @@
             width: 100vw;
             overflow: hidden;
             position: relative;
-            /* Tekstur meja sangat halus */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            /* Tekstur serat meja organik */
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0.05) 100%);
         }
 
         h1, h2, h3, .handwriting { font-family: 'Caveat', cursive; }
 
-        /* --- Landing Page / Cover Jurnal (Terang) --- */
+        /* --- LANDING COVER JURNAL (Latar Terang, Buku Mewah) --- */
         #cover-landing {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #f2efe9;
+            background-color: var(--desk-bg);
             z-index: 1000;
             display: flex; justify-content: center; align-items: center;
-            transition: opacity 1s cubic-bezier(0.5, 0, 0, 1), visibility 1s;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            background-image: radial-gradient(circle at center, #ffffff 0%, #e8e5de 100%);
         }
-        .book-cover {
-            width: 450px; height: 600px;
-            background: #4a2d24; /* Cover buku tetap elegan */
-            border-radius: 5px 25px 25px 5px;
-            box-shadow: 15px 25px 50px rgba(0,0,0,0.3), inset 5px 0 10px rgba(0,0,0,0.5);
-            border-left: 15px solid #2e1b15;
+        .book-binder-cover {
+            width: 440px; height: 580px;
+            background: linear-gradient(135deg, #44251d 0%, #2b1510 100%);
+            border-radius: 6px 24px 24px 6px;
+            box-shadow: 25px 30px 60px rgba(0,0,0,0.35), inset 7px 0 12px rgba(0,0,0,0.6);
+            border-left: 14px solid #1c0d0a;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px; text-align: center; color: #f7ede2;
-            transition: transform 0.8s;
+            padding: 40px; text-align: center; color: #f4ebd9;
+            position: relative; transition: transform 0.5s ease;
         }
-        .book-cover-title { font-size: 3rem; line-height: 1.2; margin-bottom: 10px; font-weight: 700; }
-        .book-cover-subtitle { font-family: 'Courier Prime'; font-size: 0.9rem; letter-spacing: 2px; opacity: 0.8; margin-bottom: 40px; }
+        .book-binder-cover:hover { transform: scale(1.02) rotate(-0.5deg); }
+        .gold-plate {
+            border: 2px solid #dfba6b; padding: 30px 20px; border-radius: 4px;
+            background: rgba(28, 13, 10, 0.4); box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+        .book-cover-title { font-size: 3rem; line-height: 1.2; font-weight: 700; color: #f3dca3; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .book-cover-subtitle { font-family: 'Courier Prime'; font-size: 0.8rem; letter-spacing: 3px; opacity: 0.7; margin-top: 15px; margin-bottom: 35px; }
         .open-btn {
-            background-color: #f7ede2; color: #4a2d24; border: none;
-            padding: 15px 40px; border-radius: 30px; font-family: 'Courier Prime';
-            font-weight: bold; font-size: 1.1rem; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s;
-            position: relative; z-index: 1010;
+            background: var(--gold-trim); color: #2b1510; border: none;
+            padding: 14px 36px; border-radius: 25px; font-family: 'Courier Prime';
+            font-weight: bold; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .open-btn:hover { background-color: var(--rose-gold); color: white; transform: translateY(-3px); }
+        .open-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212,175,55,0.4); color: #000; }
 
-        /* --- Messy Desk Layout (Absolute Positioning) --- */
-        #workspace {
-            width: 100vw; height: 100vh; position: relative;
-        }
+        /* --- MESSY WORKSPACE FLAT LAY --- */
+        #workspace { width: 100vw; height: 100vh; position: relative; }
 
-        /* --- Buku Cokelat di Tengah --- */
-        .craft-book {
-            position: absolute;
-            top: 50%; left: 45%;
-            transform: translate(-50%, -50%) rotate(-1deg);
-            width: 800px; height: 550px;
-            background-color: var(--craft-paper);
-            border-radius: 8px;
-            box-shadow: 10px 20px 40px rgba(0,0,0,0.2), inset 0 0 50px rgba(0,0,0,0.1);
-            display: flex;
-            z-index: 10;
+        /* --- RENDERING BUKU SCRAPBOOK 3D --- */
+        .scrapbook-binder {
+            position: absolute; top: 50%; left: 46%; transform: translate(-50%, -50%) rotate(-0.5deg);
+            width: 820px; height: 560px; background-color: var(--craft-paper);
+            border-radius: 6px; display: flex; z-index: 10;
+            box-shadow: 12px 25px 45px rgba(0,0,0,0.18), inset 0 0 40px rgba(0,0,0,0.15);
         }
-        /* Penjilidan Spiral */
-        .spiral-spine {
-            position: absolute; top: 2%; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 96%;
-            display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;
-            z-index: 15;
+        .binder-spine {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 100%; display: flex; flex-direction: column;
+            justify-content: space-evenly; align-items: center; z-index: 30;
         }
-        .ring {
-            width: 35px; height: 12px;
-            background: linear-gradient(to bottom, #d4d4d4 0%, #888 50%, #d4d4d4 100%);
-            border-radius: 6px;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        /* Lubang Kertas Masuk Ring */
+        .paper-hole {
+            width: 14px; height: 14px; background: #553e29; border-radius: 50%;
+            box-shadow: inset 1px 2px 4px rgba(0,0,0,0.8); position: absolute;
         }
-        /* Halaman Kiri & Kanan */
-        .page { width: 50%; height: 100%; position: relative; padding: 30px; }
-        .page-left { border-right: 2px solid var(--craft-paper-dark); border-radius: 8px 0 0 8px; }
-        .page-right { border-radius: 0 8px 8px 0; }
+        .ring-3d {
+            width: 12px; height: 52px; background: var(--metal-ring); border-radius: 6px;
+            box-shadow: -4px 6px 10px rgba(0,0,0,0.4), inset 1px 1px 2px rgba(255,255,255,0.7);
+            position: relative; z-index: 35;
+        }
+        .page-sheet { width: 50%; height: 100%; position: relative; padding: 35px; }
+        .sheet-left { border-right: 1px solid var(--craft-dark); box-shadow: inset -15px 0 25px rgba(0,0,0,0.05); }
+        .sheet-right { box-shadow: inset 15px 0 25px rgba(0,0,0,0.05); }
 
-        /* Area SVG Benang dalam buku */
-        .string-svg-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 12;
-        }
+        /* Utasan Benang SVG */
+        .string-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 25; }
 
-        /* --- Komponen Foto Polaroid dalam Buku --- */
-        .polaroid {
-            position: absolute;
-            background: white; padding: 8px 8px 25px 8px;
-            box-shadow: 3px 5px 15px rgba(0,0,0,0.2);
-            width: 160px; height: 180px;
-            cursor: pointer; transition: all 0.3s; z-index: 11;
+        /* --- POLAROID DENGAN KANTUNG SUDUT EMAS --- */
+        .polaroid-card {
+            position: absolute; background: var(--paper-white); padding: 10px 10px 28px 10px;
+            box-shadow: 4px 10px 22px rgba(0,0,0,0.15); width: 165px; height: 190px;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 15;
         }
-        .polaroid img { width: 100%; height: 120px; object-fit: cover; filter: grayscale(30%) sepia(20%); }
-        .polaroid-caption { font-family: 'Caveat'; font-size: 1.2rem; text-align: center; margin-top: 5px; color: var(--ink); }
-        .polaroid:hover { transform: scale(1.08) !important; z-index: 20 !important; box-shadow: 5px 10px 25px rgba(0,0,0,0.3); }
-        .polaroid.active { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--rose-gold), 5px 15px 30px rgba(0,0,0,0.4); z-index: 19 !important; }
+        .polaroid-card img { width: 100%; height: 125px; object-fit: cover; filter: contrast(95%) sepia(10%); }
+        .polaroid-caption { font-family: 'Caveat'; font-size: 1.3rem; text-align: center; margin-top: 6px; color: #3c2f2f; }
         
-        /* Pin Titik Benang */
-        .pin-point { position: absolute; width: 10px; height: 10px; background: rgba(0,0,0,0); border-radius: 50%; z-index: 100; }
+        /* Efek 3D Angkat Saat Hover */
+        .polaroid-card:hover { transform: scale(1.06) rotate(0deg) !important; z-index: 50 !important; box-shadow: 10px 20px 35px rgba(0,0,0,0.25); }
+        .polaroid-card.active { box-shadow: 0 0 0 4px var(--paper-white), 0 12px 30px rgba(178,108,108,0.4); z-index: 45 !important; }
 
-        /* Photo Corners Emas */
-        .corner { position: absolute; width: 25px; height: 25px; background: var(--photo-corner); z-index: 2; box-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        .corner-tl { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); }
-        .corner-tr { top: -2px; right: -2px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
-        .corner-bl { bottom: -2px; left: -2px; clip-path: polygon(0 0, 0 100%, 100% 100%); }
-        .corner-br { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+        /* Siku-Siku Foto Emas Tekstur Poket */
+        .gold-corner { position: absolute; width: 24px; height: 24px; background: var(--gold-trim); z-index: 5; box-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .g-tl { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .g-tr { top: -2px; right: -2px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+        .g-bl { bottom: -2px; left: -2px; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+        .g-br { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
 
-        /* Posisi Foto Berantakan di Buku */
-        #p1 { top: 15%; left: 10%; transform: rotate(-8deg); }
-        #p2 { top: 48%; left: 45%; transform: rotate(5deg); }
-        #p3 { top: 10%; left: 40%; transform: rotate(12deg); }
-        #p4 { top: 55%; left: 15%; transform: rotate(-4deg); }
+        .anchor-dot { position: absolute; width: 6px; height: 6px; background: transparent; pointer-events: none; }
 
-        /* Dynamic Memory Note Text */
-        .story-text {
-            position: absolute; bottom: 5%; left: 10%; width: 80%;
-            font-family: 'Caveat', cursive; font-size: 1.3rem; color: #4a2d24;
-            line-height: 1.3; transform: rotate(-2deg);
+        /* Tata Letak Berserak Alami (Messy Layout dari Foto) */
+        #p1 { top: 12%; left: 12%; transform: rotate(-7deg); }
+        #p2 { top: 46%; left: 44%; transform: rotate(4deg); }
+        #p3 { top: 8%; left: 42%; transform: rotate(9deg); }
+        #p4 { top: 52%; left: 14%; transform: rotate(-3deg); }
+
+        .journal-narrative {
+            position: absolute; bottom: 6%; left: 10%; width: 80%;
+            font-family: 'Caveat', cursive; font-size: 1.4rem; color: #3d2a1c;
+            line-height: 1.3; transform: rotate(-1deg); transition: opacity 0.3s ease;
         }
 
-        /* --- OBJEK-OBJEK MEJA BERANTAKAN --- */
+        /* --- RENDERING ASET MEJA 3D KUSTOM --- */
 
-        /* 1. Headphone (Pemutar Musik) di Kiri Bawah */
-        .headphone-item {
-            position: absolute; bottom: 8%; left: 8%;
-            font-size: 7rem; color: #333;
-            transform: rotate(-20deg); cursor: pointer;
-            filter: drop-shadow(8px 15px 10px rgba(0,0,0,0.3));
-            transition: all 0.3s; z-index: 5;
+        /* 1. HEADPHONE 3D REALISTIS (Pemutar Musik) */
+        .headphone-3d {
+            position: absolute; bottom: 5%; left: 4%; width: 140px; height: 150px;
+            cursor: pointer; z-index: 6; transform: rotate(-15deg);
+            filter: drop-shadow(10px 15px 12px rgba(0,0,0,0.22)); transition: transform 0.3s;
         }
-        .headphone-item:hover { transform: scale(1.05) rotate(-15deg); filter: drop-shadow(10px 20px 15px rgba(0,0,0,0.4)); }
-        .headphone-item .fa-music {
-            position: absolute; top: -10px; right: -20px; font-size: 2rem; color: var(--rose-gold);
-            opacity: 0; transition: opacity 0.3s;
+        .headphone-3d:hover { transform: scale(1.04) rotate(-10deg); }
+        .headband {
+            width: 110px; height: 100px; border: 12px solid #2b2b2b;
+            border-bottom: none; border-radius: 60px 60px 0 0; position: absolute; top: 10px; left: 15px;
+            background: transparent; box-shadow: inset 1px 2px 3px rgba(255,255,255,0.2);
         }
-        .headphone-item.playing .fa-music { opacity: 1; animation: bounce 1s infinite alternate; }
-        .cord-svg { position: absolute; bottom: -50px; left: 60px; width: 200px; height: 100px; pointer-events: none; z-index: 4; }
+        .earpad {
+            width: 38px; height: 65px; background: linear-gradient(to right, #1a1a1a, #333 70%, #111);
+            border-radius: 16px; position: absolute; bottom: 10px;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), 2px 4px 6px rgba(0,0,0,0.3);
+        }
+        .earpad-left { left: 0; } .earpad-right { right: 0; }
+        .music-pulse {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 1.5rem; color: var(--rose-gold); opacity: 0;
+        }
+        .headphone-3d.playing .music-pulse { opacity: 1; animation: noteBounce 1s infinite alternate; }
 
-        /* 2. Marker / Spidol di Kanan */
-        .marker-item {
-            position: absolute; top: 40%; right: 5%;
-            width: 25px; height: 200px; background: #222; border-radius: 10px;
-            transform: rotate(15deg); box-shadow: 10px 10px 15px rgba(0,0,0,0.3); z-index: 6;
-        }
-        .marker-item::before { content:''; position:absolute; top: -15px; left: 5px; width: 15px; height: 15px; background: #222; border-radius: 5px 5px 0 0; }
-        .marker-item::after { content:'Sharpie'; position:absolute; top: 60px; left: 50%; transform: translateX(-50%) rotate(90deg); color: #fff; font-family: Arial; font-size: 0.6rem; letter-spacing: 2px;}
+        /* Kabel Headphone Meandring */
+        .cable-svg { position: absolute; bottom: -30px; left: 70px; width: 180px; height: 90px; pointer-events: none; z-index: 5; }
 
-        /* 3. Lembar Siku-siku Foto di Bawah Buku */
-        .corner-sheet {
-            position: absolute; bottom: 2%; left: 30%;
-            width: 150px; height: 100px; background: #fff;
-            transform: rotate(-10deg); box-shadow: 2px 4px 10px rgba(0,0,0,0.15); z-index: 5;
-            display: grid; grid-template-columns: repeat(4, 1fr); padding: 10px; gap: 5px;
+        /* 2. SPIDOL SHARPIE 3D */
+        .sharpy-marker {
+            position: absolute; top: 38%; right: 4%; width: 22px; height: 190px;
+            background: linear-gradient(to right, #151515, #3a3a3a 60%, #111);
+            border-radius: 11px; transform: rotate(18deg);
+            box-shadow: 8px 12px 16px rgba(0,0,0,0.25); z-index: 8;
         }
-        .sheet-corner { width: 15px; height: 15px; background: var(--photo-corner); clip-path: polygon(0 0, 100% 0, 0 100%); }
-
-        /* 4. Potongan Kertas Notepad (Live Counter) di Kanan Atas */
-        .notepad-counter {
-            position: absolute; top: 15%; right: 8%;
-            width: 220px; background: var(--paper-white); padding: 20px;
-            transform: rotate(8deg); box-shadow: 5px 10px 20px rgba(0,0,0,0.15);
-            border-top: 15px solid #ccc; z-index: 7;
+        .sharpy-cap {
+            width: 24px; height: 55px; background: linear-gradient(to right, #0a0a0a, #222 60%, #000);
+            border-radius: 12px 12px 4px 4px; position: absolute; top: -2px; left: -1px;
+            border-bottom: 2px solid #444;
         }
-        .notepad-counter h3 { font-family: 'Caveat'; font-size: 1.8rem; border-bottom: 2px solid var(--rose-gold); margin-bottom: 10px; }
-        .time-row { font-family: 'Special Elite'; font-size: 1.2rem; margin-bottom: 5px; color: #444; }
-
-        /* 5. Gunting di Kanan Bawah */
-        .scissors-item {
-            position: absolute; bottom: 10%; right: 20%;
-            font-size: 5rem; color: #444;
-            transform: rotate(-45deg); filter: drop-shadow(5px 10px 5px rgba(0,0,0,0.2)); z-index: 6;
+        .sharpy-clip {
+            width: 4px; height: 40px; background: #111; position: absolute; top: 10px; left: -2px; border-radius: 2px;
         }
 
-        /* 6. Amplop Surat Rahasia (Terselip di atas buku) */
-        .envelope-messy {
-            position: absolute; top: -20px; left: 20%;
-            width: 180px; height: 120px; background-color: #d8b0a9;
-            box-shadow: 4px 10px 25px rgba(0,0,0,0.3); border-radius: 2px;
-            transform: rotate(-12deg); cursor: pointer; transition: transform 0.3s; z-index: 4;
+        /* 3. GUNTING 3D LAYERED */
+        .scissors-3d {
+            position: absolute; bottom: 6%; right: 18%; width: 110px; height: 160px;
+            transform: rotate(-35deg); filter: drop-shadow(6px 12px 8px rgba(0,0,0,0.2)); z-index: 7;
         }
-        .envelope-messy:hover { transform: scale(1.05) rotate(-5deg); z-index: 20; }
-        .envelope-messy::after {
+        .blade {
+            width: 14px; height: 100px; background: linear-gradient(90deg, #bdc3c7, #fff 50%, #7f8c8d);
+            position: absolute; top: 0; border-radius: 0 0 4px 4px; clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+        .blade-1 { left: 45px; transform: rotate(3deg); transform-origin: top center; }
+        .blade-2 { left: 49px; transform: rotate(-3deg); transform-origin: top center; z-index: 2; }
+        .handle {
+            width: 42px; height: 55px; border: 8px solid #2c3e50; border-radius: 50%; position: absolute; bottom: 10px;
+            background: transparent; box-shadow: inset 1px 2px 3px rgba(255,255,255,0.1);
+        }
+        .handle-1 { left: 15px; } .handle-2 { right: 15px; }
+        .pivot-screw {
+            width: 6px; height: 6px; background: #555; border-radius: 50%; position: absolute; top: 85px; left: 51px; z-index: 5;
+        }
+
+        /* 4. NOTEPAD GRID (Live Counter) */
+        .notepad-sheet {
+            position: absolute; top: 12%; right: 6%; width: 230px; background: var(--paper-white);
+            padding: 22px; transform: rotate(6deg); box-shadow: 8px 15px 30px rgba(0,0,0,0.12);
+            border-top: 14px solid #dcdad4; z-index: 9;
+            /* Pola garis-garis notepad grid */
+            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+        .notepad-sheet h3 { font-family: 'Caveat'; font-size: 1.8rem; color: var(--rose-gold); margin-bottom: 12px; font-weight: 700; text-align: center;}
+        .counter-row { font-family: 'Special Elite'; font-size: 1.15rem; margin-bottom: 6px; color: #3a3230; text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1); }
+        
+        /* Pushpin 3D Menancap Kertas */
+        .pushpin-3d {
+            position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 14px; height: 14px; background: radial-gradient(circle at 4px 4px, #e74c3c, #c0392b);
+            border-radius: 50%; box-shadow: 1px 6px 6px rgba(0,0,0,0.4); z-index: 15;
+        }
+        .pushpin-3d::after {
+            content: ''; position: absolute; bottom: -6px; left: 5px; width: 4px; height: 7px; background: #95a5a6;
+        }
+
+        /* 5. AMPLOP BERSTIKER LILIN */
+        .envelope-craft {
+            position: absolute; top: -25px; left: 18%; width: 190px; height: 125px;
+            background-color: #d2a49b; box-shadow: 6px 12px 28px rgba(0,0,0,0.22);
+            border-radius: 2px; transform: rotate(-10deg); cursor: pointer; transition: transform 0.3s; z-index: 5;
+        }
+        .envelope-craft:hover { transform: scale(1.05) rotate(-3deg); z-index: 60; }
+        .envelope-craft::after {
             content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-            border-left: 90px solid transparent; border-right: 90px solid transparent; border-bottom: 60px solid #c2968e;
+            border-left: 95px solid transparent; border-right: 95px solid transparent; border-bottom: 65px solid #bd8f86;
         }
-        .envelope-messy .seal {
-            position: absolute; top: 40px; left: 70px; width: 35px; height: 35px; background: #8c251e;
-            border-radius: 50%; color: #fdd5bd; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; z-index: 5;
+        .wax-seal-3d {
+            position: absolute; top: 42px; left: 77px; width: 36px; height: 36px;
+            background: radial-gradient(circle at 10px 10px, #9e241d, #6e120c); border-radius: 50%;
+            color: #fce2cf; font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+            z-index: 10; box-shadow: 2px 4px 6px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.2);
+            font-family: 'Special Elite'; font-weight: bold;
         }
 
-        /* --- Full Screen Secret Letter Modal --- */
+        /* --- FULL SCREEN SURAT PREMIUM --- */
         #modal-letter-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: rgba(0, 0, 0, 0.8); z-index: 2000;
-            opacity: 0; visibility: hidden; transition: all 0.6s;
+            background-color: rgba(22, 20, 19, 0.85); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s;
             display: flex; justify-content: center; align-items: center;
         }
         #modal-letter-overlay.active { opacity: 1; visibility: visible; }
-        .letter-paper {
-            background-color: var(--paper-white); width: 90%; max-width: 600px; padding: 50px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 2px;
-            transform: scale(0.85) rotate(-2deg); transition: all 0.6s;
-            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 100% 28px; line-height: 28px;
+        .letter-stationery {
+            background-color: var(--paper-white); width: 90%; max-width: 620px; padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-radius: 3px;
+            transform: scale(0.9) rotate(-1deg); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 100% 30px; line-height: 30px;
+            position: relative;
         }
-        #modal-letter-overlay.active .letter-paper { transform: scale(1) rotate(0deg); }
-        .letter-content { font-family: 'Special Elite', cursive; font-size: 1rem; color: var(--ink); text-align: justify; }
-        .letter-header { font-family: 'Caveat', cursive; font-size: 2.2rem; margin-bottom: 20px; color: var(--rose-gold); }
-        .close-letter-btn {
-            position: absolute; top: -15px; right: -15px; background: #222; color: #fff; border: none;
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        #modal-letter-overlay.active .letter-stationery { transform: scale(1) rotate(0deg); }
+        .letter-content { font-family: 'Special Elite', serif; font-size: 1.05rem; color: #2d2524; text-align: justify; }
+        .letter-header { font-family: 'Caveat', cursive; font-size: 2.4rem; margin-bottom: 25px; color: var(--rose-gold); font-weight: bold; }
+        .close-badge {
+            position: absolute; top: -18px; right: -18px; background: #1c1a19; color: #fff; border: none;
+            width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
         }
+        .close-badge:hover { transform: scale(1.1) rotate(90deg); }
 
-        @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+        /* Canvas Particle Trail */
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
+
+        @keyframes noteBounce { 0% { transform: translate(-50%, 0) scale(0.9); } 100% { transform: translate(-50%, -12px) scale(1.1); } }
     </style>
 </head>
 <body>
 
-    <div id="yt-player-container" style="position: absolute; top: -9999px; left: -9999px;"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <div id="yt-player-container"></div>
 
     <div id="cover-landing">
-        <div class="book-cover">
-            <p class="book-cover-subtitle">BIKININAJA PRESENTS</p>
-            <h1 class="book-cover-title">Khusus Untuk<br>Mezha 🤍</h1>
-            <p class="handwriting" style="font-size: 1.8rem; color: var(--blush-pink); margin-top: 15px; margin-bottom: 30px;">
-                Sebuah perayaan sederhana satu tahun kebersamaan.
-            </p>
-            <button class="open-btn" onclick="startEverything()">Buka Jurnal Cinta ✨</button>
+        <div class="book-binder-cover">
+            <div class="gold-plate">
+                <h1 class="book-cover-title">Jurnal Memori<br>Mezha 🤍</h1>
+                <p class="book-cover-subtitle">ANNIVERSARY 1st YEAR</p>
+                <button class="open-btn" onclick="startEverything()">Buka Jurnal Cinta ✨</button>
+            </div>
         </div>
     </div>
 
     <div id="workspace">
 
-        <div class="envelope-messy" onclick="openSecretLetter()">
-            <div class="seal">M</div>
+        <div class="envelope-craft" onclick="openSecretLetter()">
+            <div class="wax-seal-3d">M</div>
         </div>
         
-        <div class="craft-book" id="main-book">
-            <div class="spiral-spine">
-                <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
-                <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
-                <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        <div class="scrapbook-binder" id="main-binder">
+            <div class="binder-spine">
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
             </div>
 
-            <svg class="string-svg-container" id="string-svg">
-                <path id="thread-line" d="" fill="none" stroke="var(--string-color)" stroke-width="4" stroke-dasharray="3, 2" stroke-linecap="round" filter="drop-shadow(2px 3px 2px rgba(0,0,0,0.3))"/>
+            <svg class="string-layer" id="string-svg">
+                <path id="thread-line" d="" fill="none" stroke="#fff5ea" stroke-width="3.8" stroke-dasharray="4, 3" stroke-linecap="round" filter="drop-shadow(-2px 4px 3px rgba(0,0,0,0.25))"/>
             </svg>
 
-            <div class="page page-left">
-                <div class="story-text" id="dynamic-note">
-                    <span style="font-size: 2rem; color: #fff;">1st Anniversary!</span><br>
-                    Klik polaroid-polaroid ini untuk membaca cerita di baliknya ya...
+            <div class="page-sheet sheet-left">
+                <div class="journal-narrative" id="narrative-box">
+                    <span style="font-size: 2.2rem; color: #fff; font-weight: bold; display:block; margin-bottom:5px;">Satu Tahun Kita.</span>
+                    Sentuh lembaran foto polaroid di sebelah kanan untuk menyusuri jejak utasan benang waktu kita berdua...
                 </div>
 
-                <div class="polaroid" id="p1" onclick="showMemory(1)">
-                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
-                    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
-                    <div class="pin-point" id="pin-p1" style="top: 10px; left: 50%;"></div>
+                <div class="polaroid-card" id="p1" onclick="showMemory(1)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p1" style="top: 8px; left: 50%;"></div>
                     <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=250&q=80" alt="Bulan 1">
-                    <div class="polaroid-caption">Bulan 1</div>
+                    <div class="polaroid-caption">Awal Mula 🤍</div>
                 </div>
 
-                <div class="polaroid" id="p2" onclick="showMemory(2)">
-                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
-                    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
-                    <div class="pin-point" id="pin-p2" style="top: 10px; right: 10px;"></div>
+                <div class="polaroid-card" id="p2" onclick="showMemory(2)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p2" style="top: 8px; right: 8px;"></div>
                     <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=250&q=80" alt="Bulan 2">
-                    <div class="polaroid-caption">Bulan 2</div>
+                    <div class="polaroid-caption">Tawa Lepas ☕</div>
                 </div>
             </div>
 
-            <div class="page page-right">
-                <div class="polaroid" id="p3" onclick="showMemory(3)">
-                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
-                    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
-                    <div class="pin-point" id="pin-p3" style="top: 10px; left: 10px;"></div>
+            <div class="page-sheet sheet-right">
+                <div class="polaroid-card" id="p3" onclick="showMemory(3)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p3" style="top: 8px; left: 8px;"></div>
                     <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=250&q=80" alt="Bulan 3">
-                    <div class="polaroid-caption">Bulan 3</div>
+                    <div class="polaroid-caption">Saling Sandar 🫂</div>
                 </div>
 
-                <div class="polaroid" id="p4" onclick="showMemory(4)">
-                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
-                    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
-                    <div class="pin-point" id="pin-p4" style="bottom: 30px; left: 50%;"></div>
+                <div class="polaroid-card" id="p4" onclick="showMemory(4)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p4" style="bottom: 25px; left: 50%;"></div>
                     <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=250&q=80" alt="Bulan 4">
-                    <div class="polaroid-caption">Bulan 4</div>
+                    <div class="polaroid-caption">Satu Tahun ✨</div>
                 </div>
             </div>
         </div>
 
-        <div class="headphone-item" id="headphone-btn" onclick="toggleAudio()" title="Putar Lagu Kita">
-            <i class="fa-solid fa-headphones-alt"></i>
-            <i class="fa-solid fa-music"></i>
-            <svg class="cord-svg" viewBox="0 0 200 100">
-                <path d="M 0 0 C 50 150, 150 -50, 200 100" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+        <div class="headphone-3d" id="headphone-btn" onclick="toggleAudio()" title="Putar Lagu Gadis Manis Kalimantan">
+            <div class="headband"></div>
+            <div class="earpad earpad-left"></div>
+            <div class="earpad earpad-right"></div>
+            <i class="fa-solid fa-music music-pulse"></i>
+            <svg class="cable-svg" viewBox="0 0 180 90">
+                <path d="M 0 10 C 40 120, 120 -30, 180 80" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
             </svg>
         </div>
 
-        <div class="corner-sheet">
-            <div class="sheet-corner"></div><div class="sheet-corner"></div><div class="sheet-corner"></div><div class="sheet-corner"></div>
-            <div class="sheet-corner"></div><div class="sheet-corner"></div><div class="sheet-corner"></div><div class="sheet-corner"></div>
-            <div class="sheet-corner"></div><div class="sheet-corner"></div>
+        <div class="sharpy-marker">
+            <div class="sharpy-cap"></div>
+            <div class="sharpy-clip"></div>
         </div>
 
-        <div class="marker-item"></div>
-
-        <div class="scissors-item">
-            <i class="fa-solid fa-scissors"></i>
+        <div class="scissors-3d">
+            <div class="blade blade-1"></div>
+            <div class="blade blade-2"></div>
+            <div class="pivot-screw"></div>
+            <div class="handle handle-1"></div>
+            <div class="handle handle-2"></div>
         </div>
 
-        <div class="notepad-counter">
+        <div class="notepad-sheet">
+            <div class="pushpin-3d"></div>
             <h3>Waktu Bersama</h3>
-            <div class="time-row" id="c-days">00 Hari</div>
-            <div class="time-row" id="c-hours">00 Jam</div>
-            <div class="time-row" id="c-mins">00 Menit</div>
-            <div class="time-row" id="c-secs">00 Detik</div>
-            <p style="font-family: 'Caveat'; margin-top:10px; color:#b26c6c;">...dan terus bertambah! ✨</p>
+            <div class="counter-row" id="c-days">00 Hari</div>
+            <div class="counter-row" id="c-hours">00 Jam</div>
+            <div class="counter-row" id="c-mins">00 Menit</div>
+            <div class="counter-row" id="c-secs">00 Detik</div>
         </div>
 
     </div>
 
     <div id="modal-letter-overlay">
-        <div class="letter-paper">
-            <button class="close-letter-btn" onclick="closeSecretLetter()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="letter-stationery">
+            <button class="close-badge" onclick="closeSecretLetter()"><i class="fa-solid fa-times"></i></button>
             <div class="letter-header">Untuk Mezha, rumah ternyamanku...</div>
             <div class="letter-content">
                 <p>Mezha, selamat satu tahun hubungan kita. Jika diletakkan di atas meja penuh kenangan ini, setiap detik bersamamu rasanya berharga seperti goresan tinta terbaik.</p><br>
                 <p>Mulai dari percakapan acak, malam-malam di mana kita bercerita tanpa akhir, hingga keheningan nyaman yang kita bagi berdua, semuanya telah menyusun utasan takdir baru yang teramat indah di hidupku.</p><br>
-                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia.</p><br>
+                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia.</p>
             </div>
-            <div class="handwriting" style="font-size: 2rem; text-align: right; margin-top: 20px; color: var(--rose-gold);">Raihan yang menyayangimu selalu, 🤍</div>
+            <div class="handwriting" style="font-size: 2.2rem; text-align: right; margin-top: 25px; color: var(--rose-gold); font-weight:bold;">Raihan yang menyayangimu selalu, 🤍</div>
         </div>
     </div>
+
+    <div class="footer-text">Disusun dengan penuh cinta oleh Raihan | Desain oleh bikininaja ✨</div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // --- YOUTUBE AUDIO PLAYER (Gadis Manis Kalimantan) ---
+        // --- ASYNC YOUTUBE API LOADER ---
         let ytPlayer;
         let isPlayerReady = false;
         let playWhenReady = false;
@@ -367,7 +411,7 @@
             ytPlayer = new YT.Player('yt-player-container', {
                 height: '0', width: '0',
                 videoId: 'g_xAVabfIOI',
-                playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1 },
+                playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
                 events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
         }
@@ -399,72 +443,131 @@
         function startEverything() {
             document.getElementById('cover-landing').style.opacity = '0';
             document.getElementById('cover-landing').style.visibility = 'hidden';
-            
             if (isPlayerReady) {
                 ytPlayer.playVideo();
             } else {
                 playWhenReady = true; 
             }
-
-            // Gambar utasan benang di buku
             setTimeout(drawThread, 300);
         }
 
-        // --- DINAMIKA BUKU (MEMORI & BENANG) ---
+        // --- SISTEM PARTIKEL CANVAS MOUSE TRAIL SOFT DECAY (FAIRY DUST) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3.5 + 1.5;
+                // Kecepatan melambat alami
+                this.vx = (Math.random() * 1.6 - 0.8);
+                this.vy = (Math.random() * 1.6 - 0.8);
+                this.alpha = 1;
+                // Langkah peluruhan eksponensial super halus
+                this.decay = 0.93; 
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.98; // Gesekan udara fiktif agar partikel melambat perlahan
+                this.vy *= 0.98;
+                this.alpha *= this.decay;
+                this.size *= 0.97; // Mengecil mulus bersamaan dengan memudar
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.globalCompositeOperation = 'screen'; // Blending berkilau lembut
+                ctx.fillStyle = 'rgba(239, 211, 155, ' + this.alpha + ')'; // Warna serbuk bintang pudar
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = '#eed49f';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            // Membatasi intensitas semburan agar tetap minimalis dan anggun
+            if (Math.random() < 0.5) {
+                particles.push(new Sparkle(e.clientX, e.clientY));
+            }
+        });
+
+        function loopParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha < 0.01) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(loopParticles);
+        }
+        loopParticles();
+
+        // --- DINAMIKA BUKU BINDER & UTASAN BENANG SVG ---
         const memories = {
-            1: "<b>Bulan 1: Percikan Pertama</b><br>Ingat obrolan pertama kita? Dunia yang bising mendadak jadi sunyi. Di sinilah utasan ini mulai kita pintal...",
-            2: "<b>Bulan 2: Secangkir Kebersamaan</b><br>Jalan santai, kopi, dan kuliner lucu. Hal paling sederhana menjadi istimewa saat dijalani bersamamu.",
-            3: "<b>Bulan 3: Pelukan Nyaman</b><br>Kita mulai membagi kelelahan hidup. Kamu adalah satu-satunya tempat bersandar yang tak pernah gagal.",
-            4: "<b>Bulan 4: Langkah Sejajar</b><br>Kini langkah kita sudah sejajar. Mari terus merajut benang-benang hari esok bersama, Mezha."
+            1: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 1: Percikan Pertama</span><br>Ingat obrolan pertama kita? Dunia yang bising mendadak jadi sunyi. Di sinilah utasan takdir ini mulai kita pintal...",
+            2: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 2: Secangkir Kebersamaan</span><br>Jalan santai sore, kopi hangat, dan kuliner acak. Hal sederhana berubah menjadi luar biasa saat dijalani bersamamu.",
+            3: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 3: Saling Sandar</span><br>Bukan hanya kesenangan, kita mulai membagi kelelahan hidup. Kamu adalah tempat pulang terbaik yang tak pernah gagal.",
+            4: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 4: Langkah Sejajar</span><br>Menjelang 365 hari kita. Langkah kaki kita sudah sejajar sempurna. Mari terus menjahit hari esok bersama, Mezha."
         };
 
         function showMemory(month) {
-            document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.polaroid-card').forEach(p => p.classList.remove('active'));
             document.getElementById(`p${month}`).classList.add('active');
 
-            const note = document.getElementById('dynamic-note');
-            note.style.opacity = 0;
+            const narrative = document.getElementById('narrative-box');
+            narrative.style.opacity = 0;
             setTimeout(() => {
-                note.innerHTML = memories[month];
-                note.style.opacity = 1;
+                narrative.innerHTML = memories[month];
+                narrative.style.opacity = 1;
             }, 200);
         }
 
-        // Menggambar garis SVG yang menyeberangi buku (mengaitkan pin di polaroid)
         function drawThread() {
             const svgPath = document.getElementById('thread-line');
             const container = document.getElementById('string-svg').getBoundingClientRect();
-            const book = document.getElementById('main-book').getBoundingClientRect();
+            const binder = document.getElementById('main-binder').getBoundingClientRect();
 
-            // Ambil kordinat pin
             const p1 = document.getElementById('pin-p1').getBoundingClientRect();
             const p2 = document.getElementById('pin-p2').getBoundingClientRect();
             const p3 = document.getElementById('pin-p3').getBoundingClientRect();
             const p4 = document.getElementById('pin-p4').getBoundingClientRect();
 
-            // Kalkulasi relatif terhadap container SVG
-            const pt1 = { x: p1.left + 5 - container.left, y: p1.top + 5 - container.top };
-            const pt2 = { x: p2.left + 5 - container.left, y: p2.top + 5 - container.top };
-            const pt3 = { x: p3.left + 5 - container.left, y: p3.top + 5 - container.top };
-            const pt4 = { x: p4.left + 5 - container.left, y: p4.top + 5 - container.top };
+            const pt1 = { x: p1.left + 3 - container.left, y: p1.top + 3 - container.top };
+            const pt2 = { x: p2.left + 3 - container.left, y: p2.top + 3 - container.top };
+            const pt3 = { x: p3.left + 3 - container.left, y: p3.top + 3 - container.top };
+            const pt4 = { x: p4.left + 3 - container.left, y: p4.top + 3 - container.top };
 
-            // Buat kurva organik melintasi jilid tengah (spine)
-            const spineX = book.width / 2;
-            
+            const centerSpineX = binder.width / 2;
+
             const pathData = `
                 M ${pt1.x} ${pt1.y} 
-                Q ${pt1.x + 50} ${pt1.y + 100}, ${pt2.x} ${pt2.y}
-                S ${spineX} ${pt3.y - 50}, ${pt3.x} ${pt3.y}
+                Q ${pt1.x + 60} ${pt1.y + 110}, ${pt2.x} ${pt2.y}
+                S ${centerSpineX} ${pt3.y - 60}, ${pt3.x} ${pt3.y}
                 T ${pt4.x} ${pt4.y}
             `;
             svgPath.setAttribute('d', pathData);
         }
 
-        // --- SURAT RAHASIA ---
+        // --- SISTEM PEMBUKA ENVELOPE MODAL ---
         function openSecretLetter() { document.getElementById('modal-letter-overlay').classList.add('active'); }
         function closeSecretLetter() { document.getElementById('modal-letter-overlay').classList.remove('active'); }
 
-        // --- LIVE COUNTER ---
+        // --- LIVE TIME COUNTER ---
         const anniversaryDate = new Date("2025-06-02T00:00:00").getTime(); 
 
         function updateCounter() {
