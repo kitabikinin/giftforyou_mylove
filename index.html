@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy 1st Anniversary, Mezha 🤍</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
@@ -12,16 +11,15 @@
     
     <style>
         :root {
-            --wood-dark: #190f0b; /* Meja kayu tua walnut premium */
-            --paper-cream: #faf5e8; /* Kertas linen scrapbook hangat */
-            --paper-aged: #f1e4c3; /* Kertas serat vintage koran lama */
-            --blush-pink: #dfa6a2;
-            --rose-gold: #bc7777;
-            --terracotta: #9e3f31;
-            --ink: #261e1c; /* Tinta sepia gelap */
-            --tape-floral: rgba(223, 166, 162, 0.65);
-            --tape-vintage: rgba(188, 119, 119, 0.5);
-            --string-color: #8c2122; /* Utasan benang merah tua */
+            --wood-dark: #1e110c; /* Meja kayu walnut hangat */
+            --paper-cream: #fbf7eb; /* Kertas journaling hangat */
+            --paper-aged: #f3ebd4; /* Kertas memo kuno */
+            --blush-pink: #d9a09c;
+            --rose-gold: #b26c6c;
+            --terracotta: #a84c3e;
+            --ink: #2b211f; /* Tinta pulpen cokelat tua */
+            --tape-color: rgba(217, 160, 156, 0.6);
+            --string-color: #9e2a2b; /* Warna benang utasan merah */
         }
 
         * {
@@ -39,251 +37,179 @@
             width: 100vw;
             overflow: hidden;
             position: relative;
-            /* Tekstur meja kayu flat-lay beresolusi tinggi dengan CSS radial & linear gradients */
             background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%),
-                linear-gradient(90deg, rgba(255,255,255,0.01) 0px, transparent 1px),
-                repeating-linear-gradient(0deg, #140c09, #140c09 4px, #1f130e 4px, #1f130e 8px);
+                radial-gradient(circle at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 4px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 10px);
         }
 
         h1, h2, h3, .handwriting {
             font-family: 'Caveat', cursive;
         }
 
-        /* --- LANDING COVER JURNAL (Hanya tombol yang bisa diklik) --- */
+        /* --- Landing Page / Cover Jurnal --- */
         #cover-landing {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background-color: #1a0d0a;
+            background-color: #2b1812;
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            transition: opacity 1s cubic-bezier(0.5, 0, 0, 1), visibility 1s;
         }
         .book-cover {
-            width: 440px;
-            height: 580px;
-            background: linear-gradient(135deg, #3d2018, #29140f);
-            border-radius: 6px 30px 30px 6px;
-            box-shadow: 25px 25px 65px rgba(0,0,0,0.85), inset 7px 0 12px rgba(0,0,0,0.6);
-            border-left: 18px solid #1c0e0b;
+            width: 450px;
+            height: 600px;
+            background: #4a2d24;
+            border-radius: 5px 25px 25px 5px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.7), inset 5px 0 10px rgba(0,0,0,0.5);
+            border-left: 15px solid #2e1b15;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 40px;
             text-align: center;
-            color: #fcefe3;
+            color: #f7ede2;
             position: relative;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(0,0,0,0.5);
+            transition: transform 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        .book-cover::after {
-            content: '';
-            position: absolute;
-            right: 15px; top: 0; bottom: 0;
-            width: 1px; background: rgba(255,255,255,0.05);
+        .book-cover:hover {
+            transform: scale(1.02) rotate(-1deg);
         }
         .book-cover-title {
-            font-size: 3rem;
-            line-height: 1.1;
-            margin-bottom: 15px;
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
             font-weight: 700;
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
         }
         .book-cover-subtitle {
             font-family: 'Courier Prime', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            opacity: 0.7;
-            margin-bottom: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 40px;
         }
         .open-btn {
             background-color: var(--paper-cream);
-            color: #29140f;
+            color: var(--wood-dark);
             border: none;
-            padding: 14px 36px;
-            border-radius: 25px;
+            padding: 12px 30px;
+            border-radius: 20px;
             font-family: 'Courier Prime', monospace;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            position: relative;
             z-index: 1010;
         }
         .open-btn:hover {
             background-color: var(--blush-pink);
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(223, 166, 162, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* --- WORKSPACE FLAT LAY PREMIUM --- */
+        /* --- Canvas / Workspace Flat Lay --- */
         #workspace {
             display: grid;
-            grid-template-columns: 1.35fr 0.65fr;
+            grid-template-columns: 1.3fr 0.7fr;
             width: 100%;
             height: 100vh;
-            padding: 30px 40px;
+            padding: 40px;
             gap: 40px;
             box-sizing: border-box;
             align-items: center;
-            z-index: 5;
-            position: relative;
         }
 
-        /* --- DESAIN SCRAPBOOK JURNAL BINDER BERLAPIS --- */
+        /* --- Left Side: Jurnal Terbuka --- */
         .journal-container {
             background-color: var(--paper-cream);
-            height: 88vh;
-            border-radius: 6px 30px 30px 6px;
-            box-shadow: 
-                0 25px 55px rgba(0,0,0,0.55),
-                inset 40px 0 60px rgba(0,0,0,0.06),
-                inset -10px 0 20px rgba(0,0,0,0.02);
+            height: 85vh;
+            border-radius: 4px 25px 25px 4px / 25px 4px 4px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 30px 0 50px rgba(0,0,0,0.08);
             display: grid;
             grid-template-columns: 1fr 1fr;
             position: relative;
-            border: 1px solid rgba(0,0,0,0.12);
-            background-image: 
-                radial-gradient(rgba(0,0,0,0.02) 15%, transparent 16%),
-                radial-gradient(rgba(0,0,0,0.02) 15%, transparent 16%);
-            background-size: 16px 16px;
-            background-position: 0 0, 8px 8px; /* Pola dot grid tipis premium */
+            border: 1px solid rgba(0,0,0,0.15);
         }
-
-        /* Ring Binder Besi di Tengah Jurnal */
-        .journal-binder-spine {
+        .journal-container::after {
+            content: '';
             position: absolute;
             top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 30px; height: 100%;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding: 40px 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.2) 100%);
-            pointer-events: none;
-        }
-        .binder-ring {
-            width: 24px;
-            height: 14px;
-            background: linear-gradient(180deg, #999, #fff 40%, #555 80%, #222);
-            border-radius: 4px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+            width: 2px; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0) 50%, rgba(0,0,0,0.2));
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
         }
 
         .journal-page {
-            padding: 45px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
             position: relative;
+            overflow: hidden;
         }
 
         .page-left {
-            border-right: 1px dashed rgba(0,0,0,0.08);
+            border-right: 1px dashed rgba(0,0,0,0.05);
         }
 
-        /* Dekorasi Ornamen Scrapbook (Prangko & Doodle) */
-        .vintage-stamp {
-            position: absolute;
-            top: 30px; right: 30px;
-            width: 55px; height: 65px;
-            background: #f7ebd3;
-            border: 2px dashed #b8a686;
-            padding: 4px;
-            box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
-            transform: rotate(8deg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .stamp-inner {
-            width: 100%; height: 100%;
-            border: 1px solid #dcd1ba;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--terracotta);
-        }
-
-        .lace-decor {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            height: 15px;
-            background-image: radial-gradient(circle at 10px 0, transparent 8px, var(--paper-aged) 8px);
-            background-size: 20px 20px;
-            opacity: 0.5;
-        }
-
+        /* Judul Jurnal */
         .journal-title-box {
-            position: relative;
-            z-index: 5;
+            margin-bottom: 20px;
         }
         .journal-title {
-            font-size: 3.6rem;
+            font-size: 3.5rem;
             color: var(--terracotta);
-            line-height: 1.05;
-            font-weight: 700;
+            line-height: 1.1;
         }
         .journal-date {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-style: italic;
-            opacity: 0.6;
-            margin-top: 8px;
-            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-top: 5px;
         }
 
-        /* Kotak Note Sobek (Ripped Paper Look) */
+        /* Tempat Memo Penjelas Memori */
         .story-container {
             flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
         }
         .memory-note {
             background-color: var(--paper-aged);
             padding: 25px;
-            box-shadow: 4px 8px 18px rgba(0,0,0,0.12);
-            transform: rotate(-1deg);
+            border-radius: 2px;
+            box-shadow: 3px 5px 12px rgba(0,0,0,0.1);
+            transform: rotate(-1.5deg);
             width: 100%;
+            border-left: 4px solid var(--rose-gold);
+            font-size: 1rem;
+            line-height: 1.5;
             position: relative;
-            border-left: 5px solid var(--rose-gold);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            transition: opacity 0.3s ease;
-            /* Efek tepi kertas bergigi hiasan */
-            clip-path: polygon(0% 0%, 100% 0%, 99% 3%, 100% 6%, 98% 10%, 100% 14%, 99% 18%, 100% 22%, 98% 27%, 100% 32%, 99% 37%, 100% 42%, 98% 47%, 100% 52%, 99% 58%, 100% 63%, 98% 69%, 100% 74%, 99% 80%, 100% 85%, 98% 91%, 100% 96%, 99% 100%, 0% 100%);
         }
         .memory-note::before {
-            content: '';
+            content: '📌';
             position: absolute;
-            top: -10px; left: 30px;
-            width: 40px; height: 18px;
-            background: rgba(255,255,255,0.4);
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
-            transform: rotate(-5deg);
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.4rem;
         }
         .memory-note-title {
             font-family: 'Special Elite', serif;
             font-weight: bold;
             font-size: 1.1rem;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--terracotta);
-            border-bottom: 1px dashed rgba(0,0,0,0.15);
-            padding-bottom: 4px;
         }
 
-        /* --- TIMELINE UTASAN BERLAPIS (Page Right) --- */
+        /* Page Right: Timeline Utasan (Scrapbook String) */
         .page-right {
             position: relative;
             display: flex;
@@ -303,11 +229,11 @@
         .polaroids-workspace {
             position: relative;
             width: 100%;
-            height: 95%;
+            height: 90%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
             z-index: 2;
         }
 
@@ -318,266 +244,285 @@
             position: relative;
         }
 
-        /* Pin Paku Payung 3D Realistis */
         .pin-point {
             position: absolute;
-            width: 14px; height: 14px;
-            background: radial-gradient(circle at 4px 4px, #ff4d4d 20%, #b30000 70%, #660000 100%);
+            width: 12px; height: 12px;
+            background: radial-gradient(circle at 4px 4px, #f25c54, #9e2a2b);
             border-radius: 50%;
-            box-shadow: 2px 4px 6px rgba(0,0,0,0.4);
-            z-index: 15;
+            box-shadow: 1px 2px 5px rgba(0,0,0,0.4);
+            z-index: 10;
         }
 
-        /* Polaroid Frame Kuno Berlapis */
         .polaroid {
-            background-color: #fefefe;
-            padding: 12px 12px 30px 12px;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.18);
-            width: 150px;
-            height: 190px;
+            background-color: #fff;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 155px;
+            height: 195px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.4s ease;
             transform-origin: center;
-            border: 1px solid rgba(0,0,0,0.04);
-            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .polaroid img {
-            width: 126px;
-            height: 126px;
+            width: 135px;
+            height: 135px;
             object-fit: cover;
-            border: 1px solid #f0f0f0;
-            filter: sepia(0.1) contrast(0.95);
+            border: 1px solid #eee;
         }
         .polaroid-caption {
             font-family: 'Caveat', cursive;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             text-align: center;
-            margin-top: 6px;
-            color: #352b29;
-            font-weight: bold;
+            margin-top: 5px;
+            color: var(--ink);
+            white-space: nowrap;
         }
 
-        /* Variasi Selotip Washi Tape Sobek Mekanis */
-        .washi-tape {
-            position: absolute;
-            height: 18px;
-            background-color: var(--tape-floral);
-            backdrop-filter: blur(0.5px);
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.08);
-            z-index: 5;
-            transform-origin: center;
-            clip-path: polygon(0% 15%, 5% 0%, 95% 0%, 100% 20%, 98% 85%, 100% 100%, 0% 90%);
-        }
-
-        /* Penempatan Sudut Polaroid Acak */
-        #p1 { transform: rotate(-5deg); }
-        #p2 { transform: rotate(6deg); }
-        #p3 { transform: rotate(-6deg); }
-        #p4 { transform: rotate(5deg); }
+        #p1 { transform: rotate(-6deg) scale(0.95); }
+        #p2 { transform: rotate(5deg) scale(0.95); }
+        #p3 { transform: rotate(-4deg) scale(0.95); }
+        #p4 { transform: rotate(7deg) scale(0.95); }
 
         .polaroid:hover {
-            transform: scale(1.08) rotate(0deg) !important;
-            box-shadow: 0 18px 35px rgba(0,0,0,0.28);
-            z-index: 25;
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+            z-index: 15;
         }
         .polaroid.active {
-            box-shadow: 0 0 0 2px var(--rose-gold), 0 18px 40px rgba(0,0,0,0.32);
-            transform: scale(1.1) rotate(0deg) !important;
-            z-index: 20;
+            box-shadow: 0 0 0 3px var(--rose-gold), 0 15px 30px rgba(0,0,0,0.3);
+            transform: scale(1.08) rotate(0deg) !important;
+            z-index: 14;
         }
 
-        /* --- ACCESSORIES MEJA KANAN --- */
+        /* --- Right Side: Desk Accessories --- */
         .desk-accessories {
-            height: 88vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* Kalender Nota Robek (Live Counter) */
+        /* Live Counter */
         .counter-card {
             background-color: var(--paper-cream);
-            padding: 18px;
-            border-radius: 3px;
-            box-shadow: 5px 10px 25px rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
             text-align: center;
             position: relative;
-            transform: rotate(1deg);
+            transform: rotate(1.5deg);
             border-top: 8px solid var(--terracotta);
+        }
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: -12px; left: calc(50% - 15px);
+            width: 30px; height: 10px;
+            background: #888;
+            border-radius: 3px;
         }
         .counter-title {
             font-family: 'Special Elite', serif;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
             color: var(--terracotta);
             letter-spacing: 1px;
         }
         .counter-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
+            gap: 8px;
         }
         .counter-box {
-            background-color: rgba(0,0,0,0.02);
-            padding: 6px 2px;
-            border-radius: 2px;
-            border: 1px dashed rgba(0,0,0,0.12);
+            background-color: rgba(0,0,0,0.03);
+            padding: 8px 4px;
+            border-radius: 4px;
+            border: 1px dashed rgba(0,0,0,0.1);
         }
         .counter-val {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            color: var(--ink);
         }
         .counter-lbl {
             font-family: 'Caveat', cursive;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            opacity: 0.8;
         }
 
-        /* Pemutar Kaset Pita Retro Premium */
+        /* Cassette Player */
         .cassette-player {
-            background: linear-gradient(135deg, #231b19, #120d0c);
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 6px 14px 28px rgba(0,0,0,0.55);
-            border: 4px solid #362a27;
+            background: linear-gradient(135deg, #2d2624, #181413);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 5px 12px 24px rgba(0,0,0,0.5);
+            border: 3px solid #3d3431;
             position: relative;
-            transform: rotate(-1.5deg);
+            transform: rotate(-1deg);
         }
         .tape-label {
-            background-color: #f2f2f2;
+            background-color: #ededed;
             border-radius: 4px;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
-            margin-bottom: 12px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.25);
-            border-left: 8px solid var(--blush-pink);
-            border-right: 8px solid var(--rose-gold);
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            border-left: 10px solid var(--blush-pink);
+            border-right: 10px solid var(--rose-gold);
         }
         .song-title {
             font-family: 'Courier Prime', monospace;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #111;
         }
         .song-artist {
-            font-size: 0.65rem;
-            color: #555;
-            margin-top: 1px;
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 2px;
         }
         .tape-window {
-            height: 42px;
-            background-color: #080606;
+            height: 45px;
+            background-color: #0b0909;
             border-radius: 6px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 25px;
-            margin-bottom: 12px;
+            padding: 0 30px;
+            margin-bottom: 15px;
             position: relative;
-            box-shadow: inset 0 4px 12px rgba(0,0,0,0.85);
+            box-shadow: inset 0 3px 10px rgba(0,0,0,0.8);
         }
         .spindle {
-            width: 22px; height: 22px;
-            background-color: #444;
+            width: 24px; height: 24px;
+            background-color: #555;
             border-radius: 50%;
-            border: 4px dashed #888;
+            border: 4px dashed #999;
             animation: spin 3s linear infinite paused;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .spindle.playing { animation-play-state: running; }
-        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .spindle.playing {
+            animation-play-state: running;
+        }
+        .tape-window::after {
+            content: '📼';
+            font-size: 1.5rem;
+            opacity: 0.2;
+            position: absolute;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
         .btn-control {
-            background-color: #2e2321;
-            color: #ddd;
-            border: 1px solid #3d302d;
-            width: 38px; height: 38px;
+            background-color: #3d3431;
+            color: #eee;
+            border: 1px solid #4d423e;
+            width: 40px; height: 40px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.3);
             transition: all 0.2s;
         }
         .btn-control:hover {
             background-color: var(--rose-gold);
-            color: white;
+            transform: scale(1.05);
         }
 
-        /* Amplop Surat Estetik Premium */
+        /* Secret Envelope */
         .envelope-container {
             align-self: center;
-            transform: rotate(-2deg);
+            margin-bottom: 10px;
+            transform: rotate(-3deg);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
         }
         .envelope-container:hover {
-            transform: scale(1.04) rotate(0deg);
+            transform: scale(1.05) rotate(-1deg);
         }
-        .envelope-v3 {
-            width: 200px;
-            height: 130px;
-            background-color: #bfa19c;
-            box-shadow: 5px 12px 28px rgba(0,0,0,0.45);
-            border-radius: 3px;
+        .envelope-v2 {
+            width: 220px;
+            height: 140px;
+            background-color: #c09088;
+            box-shadow: 4px 10px 25px rgba(0,0,0,0.4);
+            border-radius: 4px;
             position: relative;
-            border: 1px solid rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
         }
-        .envelope-v3::after {
+        .envelope-v2::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0;
             width: 0; height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-bottom: 65px solid #a68580;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-bottom: 70px solid #aa7870;
             z-index: 3;
         }
-        .envelope-flap {
+        .envelope-v2::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%);
+            z-index: 2;
+        }
+        .envelope-flap-decor {
             position: absolute;
             top: 0; left: 0;
             width: 0; height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-top: 68px solid #b2918c;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-top: 75px solid #b6827a;
             z-index: 4;
         }
-        .seal-wax-wax {
+        .seal-wax {
             position: absolute;
-            top: 52px; left: calc(50% - 18px);
-            width: 36px; height: 36px;
-            background: radial-gradient(circle at 10px 10px, #9c241d, #61100b);
+            top: 60px; left: calc(50% - 20px);
+            width: 40px; height: 40px;
+            background-color: #8c251e;
             border-radius: 50%;
-            box-shadow: 1px 3px 6px rgba(0,0,0,0.4);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
             z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f7d1ba;
-            font-size: 0.9rem;
-            font-family: 'Special Elite', serif;
+            color: #fdd5bd;
+            font-size: 1rem;
         }
         .click-hint {
             font-family: 'Caveat', cursive;
             text-align: center;
-            color: rgba(255,255,255,0.7);
-            margin-top: 6px;
-            font-size: 1.05rem;
-            animation: pulse 1.4s infinite alternate;
+            color: #fff;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            animation: pulse 1.5s infinite alternate;
         }
-        @keyframes pulse { 100% { opacity: 0.3; } }
+        @keyframes pulse {
+            100% { opacity: 0.4; transform: translateY(2px); }
+        }
 
-        /* --- OVERLAY SURAT RAHASIA FULL SCREEN MODAL --- */
+        /* --- Full Screen Secret Letter Modal --- */
         #modal-letter-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background-color: rgba(12, 7, 5, 0.96);
+            background-color: rgba(18, 11, 8, 0.95);
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -588,43 +533,42 @@
         }
         .letter-paper {
             background-color: var(--paper-cream);
-            width: 85%;
-            max-width: 680px;
-            height: 82vh;
-            padding: 55px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+            width: 90%;
+            max-width: 700px;
+            height: 85vh;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             border-radius: 4px;
-            transform: scale(0.9) rotate(-3deg);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: scale(0.85) rotate(-2deg);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             overflow-y: auto;
             position: relative;
-            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
-            background-size: 100% 30px;
-            line-height: 30px;
+            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 100% 28px;
+            line-height: 28px;
         }
         #modal-letter-overlay.active .letter-paper {
             transform: scale(1) rotate(0deg);
         }
-        .letter-header {
-            font-family: 'Caveat', cursive;
-            font-size: 2.4rem;
-            margin-bottom: 25px;
-            color: var(--terracotta);
-            font-weight: bold;
-        }
         .letter-content {
-            font-family: 'Special Elite', serif;
-            font-size: 0.95rem;
+            font-family: 'Special Elite', cursive;
+            font-size: 1rem;
             color: var(--ink);
             text-align: justify;
         }
-        .letter-signature {
+        .letter-header {
             font-family: 'Caveat', cursive;
             font-size: 2.2rem;
-            text-align: right;
-            margin-top: 35px;
+            margin-bottom: 20px;
             color: var(--terracotta);
-            font-weight: bold;
+            line-height: 1.2;
+        }
+        .letter-signature {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            text-align: right;
+            margin-top: 30px;
+            color: var(--terracotta);
         }
         .close-letter-btn {
             position: absolute;
@@ -636,82 +580,62 @@
             border-radius: 20px;
             cursor: pointer;
             font-family: 'Courier Prime', monospace;
-            font-size: 0.8rem;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-            transition: background 0.2s;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            z-index: 10;
         }
         .close-letter-btn:hover {
             background-color: var(--ink);
+            transform: translateY(-2px);
         }
 
-        /* --- CANVASES FOR FRAME HEARTS & GLOW SPARKLE MOUSE TRAIL --- */
+        /* --- Cursor Trail & Background Particle Canvas --- */
         #particle-canvas {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 2; /* Hujan hati di atas meja, di bawah dialog */
-        }
-        #trail-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9999; /* Jejak kilau kursor selalu paling atas */
+            z-index: 1; /* Di belakang konten utama */
         }
 
+        /* Footer */
         .footer-text {
             position: fixed;
-            bottom: 8px; left: 50%;
+            bottom: 10px;
+            left: 50%;
             transform: translateX(-50%);
-            font-size: 0.72rem;
-            color: rgba(255,255,255,0.35);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
             z-index: 5;
+            font-family: 'Courier Prime', monospace;
             letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Animasi Canvas Terpisah -->
     <canvas id="particle-canvas"></canvas>
-    <canvas id="trail-canvas"></canvas>
 
-    <!-- Audio Element Lagu -->
-    <audio id="bg-music" loop>
-        <source src="https://open.spotify.com/intl-id/track/6B3klWr5zdlEUdqFm89Czb?si=9e678b59fac84335" type="audio/mpeg">
-    </audio>
+    <div id="yt-player-container" style="position: absolute; top: -9999px; left: -9999px; width: 1px; height: 1px;"></div>
 
-    <!-- LANDING INTERACTIVE COVER -->
     <div id="cover-landing">
         <div class="book-cover">
-            <p class="book-cover-subtitle">BIKININAJA PREMIUM DESIGNS</p>
+            <p class="book-cover-subtitle">BIKININAJA PRESENTS</p>
             <h1 class="book-cover-title">Khusus Untuk<br>Mezha 🤍</h1>
-            <p class="handwriting" style="font-size: 1.7rem; color: var(--blush-pink); margin-top: 10px; margin-bottom: 35px;">
-                Utasan indah jalinan waktu satu tahun.
+            <p class="handwriting" style="font-size: 1.8rem; color: var(--blush-pink); margin-top: 15px; margin-bottom: 30px;">
+                Sebuah perayaan sederhana satu tahun kebersamaan.
             </p>
-            <!-- Sesuai request: Hanya button ini yang memicu pembukaan -->
-            <button class="open-btn" onclick="startEverything(event)">Buka Jurnal Cinta ✨</button>
+            <button class="open-btn" onclick="startEverything()">Buka Jurnal Cinta ✨</button>
         </div>
     </div>
 
-    <!-- WORKSPACE CANVAS -->
     <div id="workspace">
         
-        <!-- BINDER SCRAPBOOK UTAMA -->
         <div class="journal-container">
-            <div class="journal-binder-spine">
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
-                <div class="binder-ring"></div>
-            </div>
-
-            <!-- HALAMAN KIRI -->
+            
             <div class="journal-page page-left">
-                <div class="vintage-stamp"><div class="stamp-inner">1st</div></div>
                 <div class="journal-title-box">
                     <h1 class="journal-title">Happy 1st<br>Anniversary,<br>Mezha 🤍</h1>
                     <p class="journal-date">2 Juni 2025 - 2 Juni 2026</p>
@@ -719,325 +643,407 @@
 
                 <div class="story-container">
                     <div class="memory-note" id="dynamic-note">
-                        <div class="memory-note-title" id="note-title">Utasan Waktu Kita</div>
-                        <p id="note-body">Pilihlah salah satu jepretan polaroid di halaman kanan. Setiap helai foto menyimpan memori berharga dan ikatan benang merah perjalanan kita.</p>
+                        <div class="memory-note-title" id="note-title">Lembaran Memori</div>
+                        <p id="note-body">Klik salah satu polaroid di halaman sebelah kanan untuk membaca memori indah dan pesan rahasia kita di bulan itu. Benang-benang itu melambangkan utasan waktu kita.</p>
                     </div>
                 </div>
-                <div class="lace-decor"></div>
             </div>
 
-            <!-- HALAMAN KANAN TIMELINE -->
             <div class="journal-page page-right">
                 <svg class="string-svg-container" id="string-svg">
-                    <path id="thread-line" d="" fill="none" stroke="var(--string-color)" stroke-width="3" stroke-dasharray="3, 5" stroke-linecap="round"/>
+                    <path id="thread-line" d="" fill="none" stroke="var(--string-color)" stroke-width="3.5" stroke-dasharray="2, 4" stroke-linecap="round"/>
                 </svg>
 
                 <div class="polaroids-workspace">
-                    <!-- Bulan 1 -->
                     <div class="polaroid-item">
-                        <div class="washi-tape" style="width: 50px; top: -5px; left: 15px; transform: rotate(-10deg);"></div>
-                        <div class="pin-point" id="pin-p1" style="top: 12px; left: calc(50% - 7px);"></div>
+                        <div class="pin-point" id="pin-p1" style="top: 15px; left: calc(50% - 6px);"></div>
                         <div class="polaroid" id="p1" onclick="showMemory(1)">
-                            <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=220&q=80" alt="Bulan 1">
-                            <div class="polaroid-caption">Bulan 1: Awal</div>
+                            <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=250&q=80" alt="Bulan Pertama">
+                            <div class="polaroid-caption">Bulan 1: Awal Mulanya</div>
                         </div>
                     </div>
 
-                    <!-- Bulan 2 -->
                     <div class="polaroid-item">
-                        <div class="washi-tape" style="width: 55px; top: -6px; right: 20px; transform: rotate(15deg); background-color: var(--tape-vintage);"></div>
-                        <div class="pin-point" id="pin-p2" style="top: 12px; left: calc(50% - 7px);"></div>
+                        <div class="pin-point" id="pin-p2" style="top: 15px; left: calc(50% - 6px);"></div>
                         <div class="polaroid" id="p2" onclick="showMemory(2)">
-                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=220&q=80" alt="Bulan 2">
-                            <div class="polaroid-caption">Bulan 2: Tawa</div>
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=250&q=80" alt="Bulan Kedua">
+                            <div class="polaroid-caption">Bulan 2: Tawa Hangat</div>
                         </div>
                     </div>
 
-                    <!-- Bulan 3 -->
                     <div class="polaroid-item">
-                        <div class="washi-tape" style="width: 45px; bottom: -5px; left: 30px; transform: rotate(5deg);"></div>
-                        <div class="pin-point" id="pin-p3" style="top: 12px; left: calc(50% - 7px);"></div>
+                        <div class="pin-point" id="pin-p3" style="top: 15px; left: calc(50% - 6px);"></div>
                         <div class="polaroid" id="p3" onclick="showMemory(3)">
-                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=220&q=80" alt="Bulan 3">
-                            <div class="polaroid-caption">Bulan 3: Teduh</div>
+                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=250&q=80" alt="Bulan Ketiga">
+                            <div class="polaroid-caption">Bulan 3: Kenyamanan</div>
                         </div>
                     </div>
 
-                    <!-- Bulan 4 -->
                     <div class="polaroid-item">
-                        <div class="washi-tape" style="width: 50px; top: -5px; right: 10px; transform: rotate(-20deg); background-color: var(--tape-vintage);"></div>
-                        <div class="pin-point" id="pin-p4" style="top: 12px; left: calc(50% - 7px);"></div>
+                        <div class="pin-point" id="pin-p4" style="top: 15px; left: calc(50% - 6px);"></div>
                         <div class="polaroid" id="p4" onclick="showMemory(4)">
-                            <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=220&q=80" alt="Bulan 4">
-                            <div class="polaroid-caption">Bulan 4: Satu</div>
+                            <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=250&q=80" alt="Bulan Keempat">
+                            <div class="polaroid-caption">Bulan 4: Selamanya</div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <!-- UTK AKSESORIS MEJA -->
         <div class="desk-accessories">
-            <!-- Counter Kalender Pajangan -->
+            
             <div class="counter-card">
-                <div class="counter-title">WAKTU YANG TELAH KITA JAHIT</div>
+                <div class="counter-title">KITA TELAH BERSAMA SELAMA</div>
                 <div class="counter-grid">
-                    <div class="counter-box"><div class="counter-val" id="days">00</div><div class="counter-lbl">Hari</div></div>
-                    <div class="counter-box"><div class="counter-val" id="hours">00</div><div class="counter-lbl">Jam</div></div>
-                    <div class="counter-box"><div class="counter-val" id="minutes">00</div><div class="counter-lbl">Menit</div></div>
-                    <div class="counter-box"><div class="counter-val" id="seconds">00</div><div class="counter-lbl">Detik</div></div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="days">00</div>
+                        <div class="counter-lbl">Hari</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="hours">00</div>
+                        <div class="counter-lbl">Jam</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="minutes">00</div>
+                        <div class="counter-lbl">Menit</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="seconds">00</div>
+                        <div class="counter-lbl">Detik</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pemutar Kaset Pita -->
             <div class="cassette-player">
                 <div class="tape-label">
-                    <div class="song-title">Terbuang dalam Waktu</div>
-                    <div class="song-artist">Idgitaf</div>
+                    <div class="song-title">Senyum Tipis Nan Menawan</div>
+                    <div class="song-artist">Gadis Manis Kalimantan (Maca fvnky)</div>
                 </div>
                 <div class="tape-window">
                     <div class="spindle" id="spindle-l"></div>
                     <div class="spindle" id="spindle-r"></div>
                 </div>
-                <button class="btn-control" onclick="toggleAudio()">
-                    <i class="fa-solid fa-play" id="play-icon"></i>
-                </button>
+                <div class="audio-controls">
+                    <button class="btn-control" id="play-pause-btn" onclick="toggleAudio()">
+                        <i class="fa-solid fa-play" id="play-icon"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Surat Segel Lilin -->
             <div class="envelope-container" onclick="openSecretLetter()">
-                <div class="envelope-v3">
-                    <div class="envelope-flap"></div>
-                    <div class="seal-wax-wax">M</div>
+                <div class="envelope-v2">
+                    <div class="envelope-flap-decor"></div>
+                    <div class="seal-wax">M</div>
                 </div>
-                <div class="click-hint">Buka Surat Pengikat Hati</div>
+                <div class="click-hint">Sentuh segel lilin untuk membuka surat...</div>
             </div>
+
         </div>
+
     </div>
 
-    <!-- MODAL POPUP JENDELA PENUH -->
     <div id="modal-letter-overlay">
         <div class="letter-paper">
-            <button class="close-letter-btn" onclick="closeSecretLetter()">Lipat Surat ↩</button>
-            <div class="letter-header">Untuk Mezha, pelabuhan terbaikku...</div>
+            <button class="close-letter-btn" onclick="closeSecretLetter()">Kembali ke Meja ↩</button>
+            <div class="letter-header">Untuk Mezha, rumah ternyamanku...</div>
             <div class="letter-content">
-                <p>Mezha, selamat hari jadi yang pertama untuk kita.</p>
+                <p>Mezha, selamat satu tahun hubungan kita. Jika diletakkan di atas kertas jurnal ini, setiap detik bersamamu rasanya berharga seperti goresan tinta terbaik.</p>
                 <br>
-                <p>Menyusun kepingan memori di dalam scrapbook digital ini menyadarkanku betapa kayanya setahun ini dengan tawamu, dukunganmu, dan kehadiranmu yang menenangkan.</p>
+                <p>Mulai dari percakapan acak, malam-malam di mana kita bercerita tanpa akhir, hingga keheningan nyaman yang kita bagi berdua, semuanya telah menyusun utasan takdir baru yang teramat indah di hidupku.</p>
                 <br>
-                <p>Setiap goresan waktu terasa bermakna. Terima kasih sudah bersedia merajut asa, melangkah beriringan, dan melengkapi ketidaksempurnaanku dengan ketulusan yang luar biasa.</p>
+                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia, melainkan tertanam menjadi kenangan abadi.</p>
                 <br>
-                <p>Aku menyayangimu selalu, di setiap detik yang lalu hingga ribuan esok yang menanti kita di depan.</p>
+                <p>Aku mencintaimu, kemarin, hari ini, esok, dan di masa-masa depan yang akan kita jahit bersama.</p>
             </div>
-            <div class="letter-signature">Raihan Naufal Aulia 🤍</div>
+            <div class="letter-signature">Raihan yang menyayangimu selalu, 🤍</div>
         </div>
     </div>
 
-    <div class="footer-text">Disusun oleh Raihan | Studio bikininaja ✨</div>
+    <div class="footer-text">Disusun dengan penuh cinta oleh Raihan | Desain oleh bikininaja ✨</div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // --- MEMORI DATA SCRAPBOOK ---
+        // --- INTEGRASI LAGU DARI YOUTUBE (HIDDEN PLAYER) ---
+        let ytPlayer;
+        let isPlayerReady = false;
+        let playWhenReady = false;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-player-container', {
+                height: '0',
+                width: '0',
+                videoId: 'g_xAVabfIOI', // ID Video YouTube yang diminta
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'modestbranding': 1,
+                    'playsinline': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            if (playWhenReady) {
+                ytPlayer.playVideo();
+            }
+        }
+
+        // Fungsi tersinkronisasi pemutar kaset dengan status asli YouTube Player
+        const playIcon = document.getElementById('play-icon');
+        const spindleL = document.getElementById('spindle-l');
+        const spindleR = document.getElementById('spindle-r');
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                playIcon.className = "fa-solid fa-pause";
+                spindleL.classList.add('playing');
+                spindleR.classList.add('playing');
+            } else {
+                playIcon.className = "fa-solid fa-play";
+                spindleL.classList.remove('playing');
+                spindleR.classList.remove('playing');
+            }
+        }
+
+        function toggleAudio() {
+            if (!isPlayerReady) return;
+            const state = ytPlayer.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                ytPlayer.pauseVideo();
+            } else {
+                ytPlayer.playVideo();
+            }
+        }
+
+        // Pemicu saat tombol "Buka Jurnal Cinta" ditekan
+        function startEverything() {
+            document.getElementById('cover-landing').style.opacity = '0';
+            document.getElementById('cover-landing').style.visibility = 'hidden';
+            
+            // Putar audio secara langsung untuk menghindari block browser
+            if (isPlayerReady) {
+                ytPlayer.playVideo();
+            } else {
+                playWhenReady = true; // Jika api belum termuat, tandai untuk diputar nanti
+            }
+
+            // Hitung dan gambar benang setelah layout dirender stabil
+            setTimeout(drawThread, 100);
+        }
+
+        // --- DATA MEMORI UNTUK TIAP BULAN ---
         const memories = {
-            1: { title: "Bulan 1: Awal Rajutan Takdir", text: "Langkah pembuka di mana untaian obrolan kita bermula. Di bulan pertama ini, aku menyadari bahwa setiap getaran pesan darimu adalah awal dari ritme hidup baru yang sangat indah." },
-            2: { title: "Bulan 2: Untaian Tawa Bersama", text: "Menjelajahi sudut jalan, berbagi cerita konyol, dan menikmati keheningan yang nyaman. Kita belajar memahami ritme satu sama lain dengan penuh kehangatan." },
-            3: { title: "Bulan 3: Keheningan yang Teduh", text: "Saat badai kecil atau kelelahan hari menyapa, kamu selalu menjadi tempat ternyaman untuk berpulang. Bersamamu, ruang tersulit pun berubah menjadi tempat yang aman." },
-            4: { title: "Bulan 4: Satu Tahun Selamanya", text: "Tepat 365 hari perjalanan ini. Kita telah membuktikan bahwa utasan kasih ini terikat kuat. Terima kasih telah menjadi bagian terindah dalam hidupku, Mezha." }
+            1: {
+                title: "Bulan 1: Percikan Pertama",
+                text: "Ingat saat obrolan pertama kita? Rasanya dunia yang awalnya bising mendadak jadi sunyi, hanya ada tawa kita berdua. Di sinilah utasan pertama ini mulai kita pintal dengan penuh harapan."
+            },
+            2: {
+                title: "Bulan 2: Secangkir Kebersamaan",
+                text: "Jalan santai sore hari, menikmati secangkir kopi, dan mencari kuliner yang lucu. Kita mulai menyadari bahwa hal paling sederhana pun menjadi istimewa luar biasa saat dijalani bersamamu."
+            },
+            3: {
+                title: "Bulan 3: Pelukan Nyaman",
+                text: "Bukan hanya kesenangan, di bulan ini kita mulai membagi kelelahan hidup dan saling menguatkan. Kamu adalah satu-satunya tempat bersandar yang tak pernah gagal mengembalikan senyumku."
+            },
+            4: {
+                title: "Bulan 4: Langkah Sejajar",
+                text: "Menjelang 365 hari kita. Kini langkah kita sudah begitu sejajar. Terima kasih telah berjalan bersamaku sejauh ini, Mezha. Mari terus merajut benang-benang hari esok bersama-sama."
+            }
         };
 
         function showMemory(month) {
             document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
-            document.getElementById(`p${month}`).classList.add('active');
+            const targetPolaroid = document.getElementById(`p${month}`);
+            targetPolaroid.classList.add('active');
 
             const note = document.getElementById('dynamic-note');
-            note.style.opacity = '0';
+            const noteTitle = document.getElementById('note-title');
+            const noteBody = document.getElementById('note-body');
+
+            note.style.opacity = 0;
             setTimeout(() => {
-                document.getElementById('note-title').innerText = memories[month].title;
-                document.getElementById('note-body').innerText = memories[month].text;
-                note.style.opacity = '1';
+                noteTitle.innerText = memories[month].title;
+                noteBody.innerText = memories[month].text;
+                note.style.opacity = 1;
             }, 200);
         }
 
-        // --- ENVELOPE MODAL ---
-        function openSecretLetter() { document.getElementById('modal-letter-overlay').classList.add('active'); }
-        function closeSecretLetter() { document.getElementById('modal-letter-overlay').classList.remove('active'); }
+        // --- SISTEM PARTIKEL BACKGROUND (Hati) & CURSOR TRAIL (Serbuk Cahaya/Sparkles) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
 
-        // --- AUDIO CASSETTE ENGINE ---
-        const bgMusic = document.getElementById('bg-music');
-        const playIcon = document.getElementById('play-icon');
-        const spinL = document.getElementById('spindle-l');
-        const spinR = document.getElementById('spindle-r');
+        let bgHearts = [];
+        let trailParticles = [];
 
-        function toggleAudio() {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                playIcon.className = "fa-solid fa-pause";
-                spinL.classList.add('playing'); spinR.classList.add('playing');
-            } else {
-                bgMusic.pause();
-                playIcon.className = "fa-solid fa-play";
-                spinL.classList.remove('playing'); spinR.classList.remove('playing');
-            }
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        function startEverything(event) {
-            event.stopPropagation(); // Mencegah bubbling sesuai request
-            document.getElementById('cover-landing').style.opacity = '0';
-            document.getElementById('cover-landing').style.visibility = 'hidden';
-            
-            bgMusic.play().then(() => {
-                playIcon.className = "fa-solid fa-pause";
-                spinL.classList.add('playing'); spinR.classList.add('playing');
-            }).catch(() => console.log("Audio play blocked, waiting for user click."));
-
-            setTimeout(drawThread, 200);
-        }
-
-        // --- DYNAMIC SVG THREAD LINE ---
-        function drawThread() {
-            const svgPath = document.getElementById('thread-line');
-            const cBox = document.getElementById('string-svg').getBoundingClientRect();
-
-            const p1 = document.getElementById('pin-p1').getBoundingClientRect();
-            const p2 = document.getElementById('pin-p2').getBoundingClientRect();
-            const p3 = document.getElementById('pin-p3').getBoundingClientRect();
-            const p4 = document.getElementById('pin-p4').getBoundingClientRect();
-
-            const pt1 = { x: p1.left + 7 - cBox.left, y: p1.top + 7 - cBox.top };
-            const pt2 = { x: p2.left + 7 - cBox.left, y: p2.top + 7 - cBox.top };
-            const pt3 = { x: p3.left + 7 - cBox.left, y: p3.top + 7 - cBox.top };
-            const pt4 = { x: p4.left + 7 - cBox.left, y: p4.top + 7 - cBox.top };
-
-            // Alur rajutan rumit melengkung p1 -> p2 -> p4 -> p3
-            const d = `M ${pt1.x} ${pt1.y} 
-                       C ${(pt1.x+pt2.x)/2 + 25} ${pt1.y - 20}, ${(pt1.x+pt2.x)/2 - 25} ${pt2.y - 20}, ${pt2.x} ${pt2.y}
-                       C ${pt2.x + 40} ${(pt2.y+pt4.y)/2}, ${pt4.x + 40} ${(pt2.y+pt4.y)/2}, ${pt4.x} ${pt4.y}
-                       C ${(pt4.x+pt3.x)/2} ${pt4.y + 30}, ${(pt4.x+pt3.x)/2} ${pt3.y + 30}, ${pt3.x} ${pt3.y}`;
-            svgPath.setAttribute('d', d);
-        }
-
-        // --- SISTEM CANVAS: HUJAN HATI BINGKAI & MOUSE TRAIL KILAU BINTANG (SPARKLE) ---
-        const pCanvas = document.getElementById('particle-canvas');
-        const pCtx = pCanvas.getContext('2d');
-        const tCanvas = document.getElementById('trail-canvas');
-        const tCtx = tCanvas.getContext('2d');
-
-        let hearts = [];
-        let sparkles = [];
-
-        function resizeCanvases() {
-            pCanvas.width = window.innerWidth; pCanvas.height = window.innerHeight;
-            tCanvas.width = window.innerWidth; tCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', () => { resizeCanvases(); setTimeout(drawThread, 150); });
-        resizeCanvases();
-
-        // 1. Hujan Hati Khusus Latar Belakang / Membingkai Bingkai
-        class BackgroundHeart {
-            constructor() {
-                this.x = Math.random() * pCanvas.width;
-                this.y = -20;
-                this.size = Math.random() * 10 + 6;
-                this.speedY = Math.random() * 0.8 + 0.4;
-                this.speedX = Math.sin(Math.random() * 2) * 0.3;
-                this.alpha = Math.random() * 0.4 + 0.2;
-            }
-            draw() {
-                pCtx.save();
-                pCtx.globalAlpha = this.alpha;
-                pCtx.fillStyle = '#bc7777';
-                pCtx.beginPath();
-                let topY = this.y - this.size / 2;
-                pCtx.moveTo(this.x, this.y + this.size / 4);
-                pCtx.bezierCurveTo(this.x - this.size / 2, topY, this.x - this.size, topY + this.size / 3, this.x, this.y + this.size);
-                pCtx.bezierCurveTo(this.x + this.size, topY + this.size / 3, this.x + this.size / 2, topY, this.x, this.y + this.size / 4);
-                pCtx.fill();
-                pCtx.restore();
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-            }
-        }
-
-        // 2. Jejak Cursor Kilau Bintang / Fairy Dust (Bukan Love)
-        class Sparkle {
+        // Kelas untuk Partikel Hati (Hanya Background)
+        class Heart {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 3 + 2;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = -(Math.random() * 1 + 0.5); // Naik ke atas
+                this.speedX = (Math.random() * 0.6 - 0.3);
                 this.alpha = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-                this.color = `hsla(${Math.random() * 30 + 35}, 70%, 75%, ${this.alpha})`; // Kilau emas/rose gold hangat
+                this.decay = 0.005;
+                this.color = `rgba(178, 108, 108, ${Math.random() * 0.4 + 0.2})`; // Warna rose gold transparan
             }
             draw() {
-                tCtx.save();
-                tCtx.globalAlpha = this.alpha;
-                tCtx.fillStyle = this.color;
-                tCtx.shadowBlur = 6;
-                tCtx.shadowColor = '#fff';
-                // Menggambar kilau bintang berujung 4 silang
-                tCtx.beginPath();
-                tCtx.moveTo(this.x, this.y - this.size * 2);
-                tCtx.quadraticCurveTo(this.x, this.y, this.x + this.size * 2, this.y);
-                tCtx.quadraticCurveTo(this.x, this.y, this.x, this.y + this.size * 2);
-                tCtx.quadraticCurveTo(this.x, this.y, this.x - this.size * 2, this.y);
-                tCtx.quadraticCurveTo(this.x, this.y, this.x, this.y - this.size * 2);
-                tCtx.fill();
-                tCtx.restore();
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                const topY = this.y - this.size / 2;
+                ctx.moveTo(this.x, this.y + this.size / 4);
+                ctx.bezierCurveTo(this.x - this.size / 2, topY, this.x - this.size, topY + this.size / 3, this.x, this.y + this.size);
+                ctx.bezierCurveTo(this.x + this.size, topY + this.size / 3, this.x + this.size / 2, topY, this.x, this.y + this.size / 4);
+                ctx.fill();
+                ctx.restore();
             }
             update() {
-                this.x += this.speedX;
                 this.y += this.speedY;
+                this.x += this.speedX;
                 this.alpha -= this.decay;
             }
         }
 
+        // Kelas untuk Partikel Jejak Kursor (Serbuk Cahaya Emas Pudar)
+        class GlowSparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1.5;
+                this.speedY = (Math.random() * 1.5 - 0.75); // Melayang acak perlahan
+                this.speedX = (Math.random() * 1.5 - 0.75);
+                this.alpha = 1;
+                this.decay = 0.03; // Menghilang lebih cepat dari hati
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = '#fce4cd'; // Warna serbuk emas hangat
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#fce4cd'; // Efek glow
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.alpha -= this.decay;
+            }
+        }
+
+        function spawnBackgroundHearts() {
+            if (bgHearts.length < 35) {
+                bgHearts.push(new Heart(Math.random() * canvas.width, canvas.height + 20));
+            }
+        }
+
+        // Event listener mousemove untuk membangkitkan Serbuk Cahaya (GlowSparkle)
         window.addEventListener('mousemove', (e) => {
-            for(let i=0; i<2; i++) {
-                sparkles.push(new Sparkle(e.clientX, e.clientY));
+            if (Math.random() < 0.6) {
+                trailParticles.push(new GlowSparkle(e.clientX, e.clientY));
             }
         });
 
-        function animationLoop() {
-            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-            tCtx.clearRect(0, 0, tCanvas.width, tCanvas.height);
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            spawnBackgroundHearts();
 
-            // Generator Hujan Hati Latar
-            if (hearts.length < 40 && Math.random() < 0.08) {
-                hearts.push(new BackgroundHeart());
+            // Render background hearts
+            for (let i = bgHearts.length - 1; i >= 0; i--) {
+                bgHearts[i].update();
+                bgHearts[i].draw();
+                if (bgHearts[i].alpha <= 0) bgHearts.splice(i, 1);
             }
 
-            for (let i = hearts.length - 1; i >= 0; i--) {
-                hearts[i].update();
-                hearts[i].draw();
-                if (hearts[i].y > pCanvas.height) hearts.splice(i, 1);
+            // Render mouse trail (Serbuk Cahaya)
+            for (let i = trailParticles.length - 1; i >= 0; i--) {
+                trailParticles[i].update();
+                trailParticles[i].draw();
+                if (trailParticles[i].alpha <= 0) trailParticles.splice(i, 1);
             }
 
-            // Loop Jejak Sparkle Kursor
-            for (let i = sparkles.length - 1; i >= 0; i--) {
-                sparkles[i].update();
-                sparkles[i].draw();
-                if (sparkles[i].alpha <= 0) sparkles.splice(i, 1);
-            }
-
-            requestAnimationFrame(animationLoop);
+            requestAnimationFrame(animateParticles);
         }
-        animationLoop();
+        animateParticles();
 
-        // --- LIVE COUNTER TIME ---
+        // --- INTERAKTIVITAS UTASAN BENANG TIMELINE (SVG PATH DYNAMIC) ---
+        function drawThread() {
+            const svgPath = document.getElementById('thread-line');
+            
+            const p1 = document.getElementById('pin-p1').getBoundingClientRect();
+            const p2 = document.getElementById('pin-p2').getBoundingClientRect();
+            const p3 = document.getElementById('pin-p3').getBoundingClientRect();
+            const p4 = document.getElementById('pin-p4').getBoundingClientRect();
+            const container = document.getElementById('string-svg').getBoundingClientRect();
+
+            const pt1 = { x: p1.left + 6 - container.left, y: p1.top + 6 - container.top };
+            const pt2 = { x: p2.left + 6 - container.left, y: p2.top + 6 - container.top };
+            const pt3 = { x: p3.left + 6 - container.left, y: p3.top + 6 - container.top };
+            const pt4 = { x: p4.left + 6 - container.left, y: p4.top + 6 - container.top };
+
+            const pathData = `
+                M ${pt1.x} ${pt1.y} 
+                Q ${(pt1.x + pt2.x)/2 + 20} ${(pt1.y + pt2.y)/2 - 30}, ${pt2.x} ${pt2.y}
+                T ${pt4.x} ${pt4.y}
+                Q ${(pt4.x + pt3.x)/2 - 30} ${(pt4.y + pt3.y)/2 + 20}, ${pt3.x} ${pt3.y}
+            `;
+            svgPath.setAttribute('d', pathData);
+        }
+
+        // --- SISTEM PEMBUKA SURAT RAHASIA (MODAL FULL SCREEN) ---
+        function openSecretLetter() {
+            document.getElementById('modal-letter-overlay').classList.add('active');
+        }
+
+        function closeSecretLetter() {
+            document.getElementById('modal-letter-overlay').classList.remove('active');
+        }
+
+        // --- LIVE COUNTER KEBERSAMAAN ---
         const anniversaryDate = new Date("2025-06-02T00:00:00").getTime(); 
+
         function updateCounter() {
             const now = new Date().getTime();
             const distance = now - anniversaryDate;
-            document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(Math.max(0, days)).padStart(2, '0');
+            document.getElementById("hours").innerText = String(Math.max(0, hours)).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(Math.max(0, minutes)).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(Math.max(0, seconds)).padStart(2, '0');
         }
         setInterval(updateCounter, 1000);
         updateCounter();
+
+        window.addEventListener('resize', () => {
+            setTimeout(drawThread, 150);
+        });
     </script>
 </body>
 </html>
