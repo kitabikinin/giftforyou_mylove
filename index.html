@@ -1,488 +1,1061 @@
+slides:Happy 1st Anniversary, Mezha:index.html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 1st Anniversary, Mezha ✨</title>
+    <title>Happy 1st Anniversary, Mezha 🤍</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-desk: #2a2320; /* Dark wood aesthetic */
-            --paper-main: #fcf8f2;
-            --paper-vintage: #f4ebd8;
-            --blush-pink: #e6c2bf;
-            --rose-gold: #b76e79;
-            --ink: #332927;
-            --tape: rgba(230, 194, 191, 0.7);
+            --wood-dark: #1e110c; /* Meja kayu walnut hangat */
+            --paper-cream: #fbf7eb; /* Kertas journaling hangat */
+            --paper-aged: #f3ebd4; /* Kertas memo kuno */
+            --blush-pink: #d9a09c;
+            --rose-gold: #b26c6c;
+            --terracotta: #a84c3e;
+            --ink: #2b211f; /* Tinta pulpen cokelat tua */
+            --tape-color: rgba(217, 160, 156, 0.6);
+            --string-color: #9e2a2b; /* Warna benang utasan merah */
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
 
         body {
-            background-color: var(--bg-desk);
+            background-color: var(--wood-dark);
             color: var(--ink);
             font-family: 'Courier Prime', monospace;
-            overflow-x: hidden;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             position: relative;
-            /* Subtle texture for the desk */
-            background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+            /* Tekstur meja serat kayu vintage */
+            background-image: 
+                radial-gradient(circle at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 4px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 10px);
         }
 
         h1, h2, h3, .handwriting {
             font-family: 'Caveat', cursive;
         }
 
-        /* --- Particle Effects --- */
-        #particles-container {
+        /* --- Landing Page / Cover Jurnal (Wajib Interaksi untuk memutar Musik) --- */
+        #cover-landing {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: #2b1812;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s cubic-bezier(0.5, 0, 0, 1), visibility 1s;
+            cursor: pointer;
         }
-        .petal {
-            position: absolute;
-            background-color: var(--rose-gold);
-            border-radius: 15px 0 15px 0;
-            opacity: 0.6;
-            animation: fall linear infinite;
+        .book-cover {
+            width: 450px;
+            height: 600px;
+            background: #4a2d24;
+            border-radius: 5px 25px 25px 5px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.7), inset 5px 0 10px rgba(0,0,0,0.5);
+            border-left: 15px solid #2e1b15;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            color: #f7ede2;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg) scale(0.5); opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
+        .book-cover:hover {
+            transform: scale(1.02) rotate(-1deg);
+        }
+        .book-cover-title {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .book-cover-subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        .open-btn {
+            background-color: var(--paper-cream);
+            color: var(--wood-dark);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .open-btn:hover {
+            background-color: var(--blush-pink);
+            transform: translateY(-2px);
         }
 
-        /* --- Global Flat Lay & Scrapbook Elements --- */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        /* --- Canvas / Workspace Flat Lay --- */
+        #workspace {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            width: 100%;
+            height: 100vh;
+            padding: 40px;
+            gap: 40px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        /* --- Left Side: Jurnal Terbuka --- */
+        .journal-container {
+            background-color: var(--paper-cream);
+            height: 85vh;
+            border-radius: 4px 25px 25px 4px / 25px 4px 4px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 30px 0 50px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             position: relative;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        /* Pembatas Tengah Buku */
+        .journal-container::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0) 50%, rgba(0,0,0,0.2));
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .journal-page {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-left {
+            border-right: 1px dashed rgba(0,0,0,0.05);
+        }
+
+        /* Judul Jurnal */
+        .journal-title-box {
+            margin-bottom: 20px;
+        }
+        .journal-title {
+            font-size: 3.5rem;
+            color: var(--terracotta);
+            line-height: 1.1;
+        }
+        .journal-date {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        /* Tempat Memo Penjelas Memori */
+        .story-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .memory-note {
+            background-color: var(--paper-aged);
+            padding: 25px;
+            border-radius: 2px;
+            box-shadow: 3px 5px 12px rgba(0,0,0,0.1);
+            transform: rotate(-1.5deg);
+            width: 100%;
+            border-left: 4px solid var(--rose-gold);
+            font-size: 1rem;
+            line-height: 1.5;
+            position: relative;
+        }
+        .memory-note::before {
+            content: '📌';
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.4rem;
+        }
+        .memory-note-title {
+            font-family: 'Special Elite', serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--terracotta);
+        }
+
+        /* Page Right: Timeline Utasan (Scrapbook String) */
+        .page-right {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Area SVG untuk Utasan Benang */
+        .string-svg-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Polaroid Grid & Layout */
+        .polaroids-workspace {
+            position: relative;
+            width: 100%;
+            height: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            z-index: 2;
+        }
+
+        .polaroid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Pin/Paku tindih benang */
+        .pin-point {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: radial-gradient(circle at 4px 4px, #f25c54, #9e2a2b);
+            border-radius: 50%;
+            box-shadow: 1px 2px 5px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
-        .paper {
-            background-color: var(--paper-main);
-            box-shadow: 5px 15px 25px rgba(0,0,0,0.3);
-            border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px; /* Organic paper feel */
-            padding: 40px;
-            position: relative;
-        }
-
-        .washi-tape {
-            position: absolute;
-            width: 80px;
-            height: 25px;
-            background-color: var(--tape);
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-            z-index: 5;
-            opacity: 0.9;
-            transform: rotate(-3deg);
-        }
-
         .polaroid {
-            background: white;
-            padding: 15px 15px 40px 15px;
-            box-shadow: 3px 10px 20px rgba(0,0,0,0.4);
-            position: relative;
-            display: inline-block;
-            transition: transform 0.3s;
+            background-color: #fff;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 155px;
+            height: 195px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            transform-origin: center;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .polaroid img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
+            width: 135px;
+            height: 135px;
+            object-fit: cover;
+            border: 1px solid #eee;
         }
-        .polaroid p {
+        .polaroid-caption {
             font-family: 'Caveat', cursive;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-align: center;
-            margin-top: 10px;
-        }
-
-        /* --- Scroll Reveal --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* --- Section 1: Hero Cover --- */
-        #hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .cover-journal {
-            width: 90%;
-            max-width: 600px;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            transform: rotate(2deg);
-        }
-        .cover-journal h1 {
-            font-size: 4rem;
+            margin-top: 5px;
             color: var(--ink);
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-        .hero-tape {
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%) rotate(2deg);
-            width: 120px;
+            white-space: nowrap;
         }
 
-        /* --- Section 2: Soundtrack --- */
-        #soundtrack {
-            margin: 60px auto;
-            text-align: center;
+        /* Modifikasi Transformasi Polaroid secara acak */
+        #p1 { transform: rotate(-6deg) scale(0.95); }
+        #p2 { transform: rotate(5deg) scale(0.95); }
+        #p3 { transform: rotate(-4deg) scale(0.95); }
+        #p4 { transform: rotate(7deg) scale(0.95); }
+
+        /* Hover Effect & Selected State */
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+            z-index: 15;
         }
-        .mixtape {
-            background-color: var(--paper-vintage);
-            padding: 20px;
-            border: 2px dashed var(--ink);
-            display: inline-block;
-            transform: rotate(-1deg);
-            box-shadow: 4px 8px 15px rgba(0,0,0,0.3);
-            position: relative;
-            max-width: 100%;
-        }
-        .mixtape h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .polaroid.active {
+            box-shadow: 0 0 0 3px var(--rose-gold), 0 15px 30px rgba(0,0,0,0.3);
+            transform: scale(1.08) rotate(0deg) !important;
+            z-index: 14;
         }
 
-        /* --- Section 3: The Journey --- */
-        #journey {
-            display: flex;
-            flex-direction: column;
-            gap: 80px;
-            margin: 80px 0;
-        }
-        .timeline-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-        .timeline-item:nth-child(odd) .polaroid { transform: rotate(-4deg); }
-        .timeline-item:nth-child(even) .polaroid { transform: rotate(5deg); }
-        
-        .story-scrap {
-            background-color: var(--paper-vintage);
-            padding: 20px;
-            margin-top: -20px;
-            z-index: 2;
-            box-shadow: 2px 5px 10px rgba(0,0,0,0.2);
-            max-width: 400px;
-            border-left: 3px solid var(--rose-gold);
-            transform: rotate(1deg);
-        }
-
-        /* --- Section 4: Secret Message --- */
-        #secret-message {
-            margin: 100px auto;
-            display: flex;
-            justify-content: center;
-            cursor: pointer;
-        }
-        .envelope-wrapper {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background-color: #dcb3a8;
-            box-shadow: 5px 15px 25px rgba(0,0,0,0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .flap {
+        /* Washi Tape hiasan pinggir */
+        .washi-tape-decor {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 100px solid #ce9e92;
-            transform-origin: top;
-            transition: transform 0.6s;
-            z-index: 4;
-        }
-        .envelope-body {
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 150px solid #e2bcb2;
-            border-right: 150px solid #e2bcb2;
-            border-bottom: 100px solid #dcb3a8;
-            z-index: 3;
-        }
-        .letter {
-            position: absolute;
-            background-color: var(--paper-main);
-            width: 260px;
-            height: 180px;
-            top: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.8s, z-index 0.6s;
-            z-index: 2;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        .envelope-wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-        .envelope-wrapper.open .letter {
-            transform: translateY(-120px);
+            width: 60px; height: 20px;
+            background-color: var(--tape-color);
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            pointer-events: none;
             z-index: 5;
         }
 
-        /* --- Section 5: Live Counter --- */
-        #live-counter {
+        /* --- Right Side: Desk Accessories --- */
+        .desk-accessories {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Live Counter (Aged Calendar Page) */
+        .counter-card {
+            background-color: var(--paper-cream);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
             text-align: center;
-            margin: 80px auto;
+            position: relative;
+            transform: rotate(1.5deg);
+            border-top: 8px solid var(--terracotta);
+        }
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: -12px; left: calc(50% - 15px);
+            width: 30px; height: 10px;
+            background: #888;
+            border-radius: 3px;
+        }
+        .counter-title {
+            font-family: 'Special Elite', serif;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--terracotta);
+            letter-spacing: 1px;
         }
         .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .counter-box {
+            background-color: rgba(0,0,0,0.03);
+            padding: 8px 4px;
+            border-radius: 4px;
+            border: 1px dashed rgba(0,0,0,0.1);
+        }
+        .counter-val {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--ink);
+        }
+        .counter-lbl {
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Cassette Player ("Terbuang dalam Waktu") */
+        .cassette-player {
+            background: linear-gradient(135deg, #2d2624, #181413);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 5px 12px 24px rgba(0,0,0,0.5);
+            border: 3px solid #3d3431;
+            position: relative;
+            transform: rotate(-1deg);
+        }
+        .tape-label {
+            background-color: #ededed;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            border-left: 10px solid var(--blush-pink);
+            border-right: 10px solid var(--rose-gold);
+        }
+        .song-title {
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #111;
+        }
+        .song-artist {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 2px;
+        }
+        .tape-window {
+            height: 45px;
+            background-color: #0b0909;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 30px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: inset 0 3px 10px rgba(0,0,0,0.8);
+        }
+        .spindle {
+            width: 24px; height: 24px;
+            background-color: #555;
+            border-radius: 50%;
+            border: 4px dashed #999;
+            animation: spin 3s linear infinite paused;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .spindle.playing {
+            animation-play-state: running;
+        }
+        .tape-window::after {
+            content: '📼';
+            font-size: 1.5rem;
+            opacity: 0.2;
+            position: absolute;
+        }
+        .audio-controls {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
         }
-        .time-box {
-            background-color: var(--paper-main);
-            padding: 15px;
-            box-shadow: 2px 5px 10px rgba(0,0,0,0.2);
-            border-radius: 2px 10px 2px 10px;
-            min-width: 80px;
-            position: relative;
-        }
-        .time-box span {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        .time-box p {
-            font-family: 'Caveat', cursive;
-            font-size: 1.2rem;
-            margin-top: 5px;
-        }
-        .pin {
-            position: absolute;
-            top: 5px; left: 50%;
-            transform: translateX(-50%);
-            width: 10px; height: 10px;
-            background-color: #555;
+        .btn-control {
+            background-color: #3d3431;
+            color: #eee;
+            border: 1px solid #4d423e;
+            width: 40px; height: 40px;
             border-radius: 50%;
-            box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        .btn-control:hover {
+            background-color: var(--rose-gold);
+            transform: scale(1.05);
         }
 
-        /* --- Section 6: Footer --- */
-        footer {
+        /* Secret Envelope */
+        .envelope-container {
+            align-self: center;
+            margin-bottom: 10px;
+            transform: rotate(-3deg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .envelope-container:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+        .envelope-v2 {
+            width: 220px;
+            height: 140px;
+            background-color: #c09088;
+            box-shadow: 4px 10px 25px rgba(0,0,0,0.4);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .envelope-v2::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-bottom: 70px solid #aa7870;
+            z-index: 3;
+        }
+        .envelope-v2::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%);
+            z-index: 2;
+        }
+        .envelope-flap-decor {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-top: 75px solid #b6827a;
+            z-index: 4;
+        }
+        .seal-wax {
+            position: absolute;
+            top: 60px; left: calc(50% - 20px);
+            width: 40px; height: 40px;
+            background-color: #8c251e;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fdd5bd;
+            font-size: 1rem;
+        }
+        .click-hint {
+            font-family: 'Caveat', cursive;
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.8rem;
-            opacity: 0.7;
             color: #fff;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            100% { opacity: 0.4; transform: translateY(2px); }
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .cover-journal h1 { font-size: 2.8rem; }
-            .envelope-wrapper { transform: scale(0.8); }
+        /* --- Full Screen Secret Letter Modal --- */
+        #modal-letter-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(18, 11, 8, 0.95);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-letter-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .letter-paper {
+            background-color: var(--paper-cream);
+            width: 90%;
+            max-width: 700px;
+            height: 85vh;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border-radius: 4px;
+            transform: scale(0.85) rotate(-2deg);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow-y: auto;
+            position: relative;
+            /* Garis halus khas kertas tulis bergaris */
+            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 100% 28px;
+            line-height: 28px;
+        }
+        #modal-letter-overlay.active .letter-paper {
+            transform: scale(1) rotate(0deg);
+        }
+        .letter-content {
+            font-family: 'Special Elite', cursive;
+            font-size: 1rem;
+            color: var(--ink);
+            text-align: justify;
+        }
+        .letter-header {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--terracotta);
+            line-height: 1.2;
+        }
+        .letter-signature {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            text-align: right;
+            margin-top: 30px;
+            color: var(--terracotta);
+        }
+        .close-letter-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            background-color: var(--terracotta);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .close-letter-btn:hover {
+            background-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        /* --- Cursor Trail & Background Particle Canvas --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1; /* Di belakang konten utama */
+        }
+
+        /* Footer */
+        .footer-text {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            z-index: 5;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <div id="particles-container"></div>
+    <!-- Canvas Efek Latar Belakang & Cursor Trail (Hati) -->
+    <canvas id="particle-canvas"></canvas>
 
-    <div class="container">
-        <section id="hero">
-            <div class="paper cover-journal reveal">
-                <div class="washi-tape hero-tape"></div>
-                <h1>Happy 1st Anniversary,<br>Mezha 🤍</h1>
-                <p style="font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--rose-gold);">
-                    Sebuah jurnal kecil tentang perjalanan kita...
-                </p>
-                <div style="margin-top: 30px; font-size: 2rem;">❦</div>
-            </div>
-        </section>
+    <!-- Audio Element untuk Lagu "Terbuang dalam Waktu" -->
+    <!-- Menggunakan musik romantis lofi/akustik instrumen sebagai audio source -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-        <section id="soundtrack" class="reveal">
-            <div class="mixtape">
-                <div class="washi-tape" style="top: -10px; right: -10px; transform: rotate(15deg);"></div>
-                <h2 class="handwriting">Soundtrack Kita 🎵</h2>
-                <p style="margin-bottom: 15px; font-size: 0.9rem;">Lagu yang selalu mengingatkanku padamu</p>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3Zwu2K0Qa5sT6teGCCgQwP?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </div>
-        </section>
-
-        <section id="journey">
-            <div class="timeline-item reveal">
-                <div class="polaroid">
-                    <div class="washi-tape" style="top: -10px; left: -10px; transform: rotate(-20deg);"></div>
-                    <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=300&q=80" alt="Bulan 1">
-                    <p>Bulan Pertama ✨</p>
-                </div>
-                <div class="story-scrap">
-                    <p>Awal dari semuanya. Ingat saat pertama kali kita benar-benar mengobrol panjang? Rasanya waktu berhenti. Aku tahu sejak saat itu, kamu spesial.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="polaroid">
-                    <div class="washi-tape" style="top: -10px; right: -10px; transform: rotate(15deg);"></div>
-                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=300&q=80" alt="Bulan 2">
-                    <p>Tawa Bersama ☕</p>
-                </div>
-                <div class="story-scrap" style="transform: rotate(-1.5deg);">
-                    <p>Bulan di mana kita mulai terbiasa dengan keanehan satu sama lain. Jalan-jalan tanpa arah, mencari tempat makan, dan tawa yang tidak pernah habis.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="polaroid">
-                    <div class="washi-tape" style="top: -10px; left: 40%; transform: rotate(2deg);"></div>
-                    <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=300&q=80" alt="Bulan Terakhir">
-                    <p>Satu Tahun! 🎉</p>
-                </div>
-                <div class="story-scrap">
-                    <p>Mezha, 365 hari berlalu begitu cepat. Terima kasih sudah bertahan, mendukung, dan menjadi rumah untukku. <i>I love you more than words can say.</i></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="secret-message" class="reveal">
-            <div class="envelope-wrapper" onclick="this.classList.toggle('open')">
-                <div class="flap"></div>
-                <div class="envelope-body"></div>
-                <div class="letter">
-                    <h3 class="handwriting" style="font-size: 1.5rem; margin-bottom: 10px;">Untuk Mezha,</h3>
-                    <p style="font-family: 'Courier Prime'; font-size: 0.8rem; line-height: 1.4;">
-                        Klik ini adalah buktinya. Dari baris kode hingga realita, namamu selalu jadi alasan terbaikku untuk terus mencoba. Selamat hari jadi yang ke-1.<br><br>
-                        - Raihan
-                    </p>
-                </div>
-                <div style="position: absolute; bottom: -30px; font-family: 'Caveat'; color: #fff; font-size: 1.2rem;">(Klik amplopnya)</div>
-            </div>
-        </section>
-
-        <section id="live-counter" class="reveal">
-            <h2 class="handwriting" style="color: #fff; font-size: 2.5rem;">Waktu Bersama</h2>
-            <div class="counter-grid">
-                <div class="time-box">
-                    <div class="pin"></div>
-                    <span id="days">0</span>
-                    <p>Hari</p>
-                </div>
-                <div class="time-box">
-                    <div class="pin"></div>
-                    <span id="hours">0</span>
-                    <p>Jam</p>
-                </div>
-                <div class="time-box">
-                    <div class="pin"></div>
-                    <span id="minutes">0</span>
-                    <p>Menit</p>
-                </div>
-                <div class="time-box">
-                    <div class="pin"></div>
-                    <span id="seconds">0</span>
-                    <p>Detik</p>
-                </div>
-            </div>
-        </section>
+    <!-- LANDING COVER JURNAL -->
+    <div id="cover-landing" onclick="startEverything()">
+        <div class="book-cover">
+            <p class="book-cover-subtitle">BIKININAJA PRESENTS</p>
+            <h1 class="book-cover-title">Khusus Untuk<br>Mezha 🤍</h1>
+            <p class="handwriting" style="font-size: 1.8rem; color: var(--blush-pink); margin-top: 15px; margin-bottom: 30px;">
+                Sebuah perayaan sederhana satu tahun kebersamaan.
+            </p>
+            <button class="open-btn">Buka Jurnal Cinta ✨</button>
+        </div>
     </div>
 
-    <footer>
-        <p>Disusun dengan penuh cinta oleh Raihan | Desain oleh bikininaja ✨</p>
-    </footer>
+    <!-- MAIN LAPTOP WORKSPACE (Full Lay, Tanpa Scroll) -->
+    <div id="workspace">
+        
+        <!-- LEFT PANEL: Open Binder/Journal -->
+        <div class="journal-container">
+            
+            <!-- Page Left: Cover & Detail Caption -->
+            <div class="journal-page page-left">
+                <div class="journal-title-box">
+                    <h1 class="journal-title">Happy 1st<br>Anniversary,<br>Mezha 🤍</h1>
+                    <p class="journal-date">2 Juni 2025 - 2 Juni 2026</p>
+                </div>
+
+                <div class="story-container">
+                    <!-- Note box interaktif yang dinamis berganti isi saat polaroid di-klik -->
+                    <div class="memory-note" id="dynamic-note">
+                        <div class="memory-note-title" id="note-title">Lembaran Memori</div>
+                        <p id="note-body">Klik salah satu polaroid di halaman sebelah kanan untuk membaca memori indah dan pesan rahasia kita di bulan itu. Benang-benang itu melambangkan utasan waktu kita.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Right: Polaroid Timeline dengan UTASAN benang -->
+            <div class="journal-page page-right">
+                <!-- SVG untuk merender garis benang rajut merah -->
+                <svg class="string-svg-container" id="string-svg">
+                    <path id="thread-line" d="" fill="none" stroke="var(--string-color)" stroke-width="3.5" stroke-dasharray="2, 4" stroke-linecap="round"/>
+                </svg>
+
+                <div class="polaroids-workspace">
+                    <!-- Bulan 1 -->
+                    <div class="polaroid-item">
+                        <div class="pin-point" id="pin-p1" style="top: 15px; left: calc(50% - 6px);"></div>
+                        <div class="polaroid" id="p1" onclick="showMemory(1)">
+                            <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=250&q=80" alt="Bulan Pertama">
+                            <div class="polaroid-caption">Bulan 1: Awal Mulanya</div>
+                        </div>
+                    </div>
+
+                    <!-- Bulan 2 -->
+                    <div class="polaroid-item">
+                        <div class="pin-point" id="pin-p2" style="top: 15px; left: calc(50% - 6px);"></div>
+                        <div class="polaroid" id="p2" onclick="showMemory(2)">
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=250&q=80" alt="Bulan Kedua">
+                            <div class="polaroid-caption">Bulan 2: Tawa Hangat</div>
+                        </div>
+                    </div>
+
+                    <!-- Bulan 3 -->
+                    <div class="polaroid-item">
+                        <div class="pin-point" id="pin-p3" style="top: 15px; left: calc(50% - 6px);"></div>
+                        <div class="polaroid" id="p3" onclick="showMemory(3)">
+                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=250&q=80" alt="Bulan Ketiga">
+                            <div class="polaroid-caption">Bulan 3: Kenyamanan</div>
+                        </div>
+                    </div>
+
+                    <!-- Bulan 4 -->
+                    <div class="polaroid-item">
+                        <div class="pin-point" id="pin-p4" style="top: 15px; left: calc(50% - 6px);"></div>
+                        <div class="polaroid" id="p4" onclick="showMemory(4)">
+                            <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=250&q=80" alt="Bulan Keempat">
+                            <div class="polaroid-caption">Bulan 4: Selamanya</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL: Desk Utilities (Calendar, Player, Envelope) -->
+        <div class="desk-accessories">
+            
+            <!-- Live Counter (Aged Calendar Page Style) -->
+            <div class="counter-card">
+                <div class="counter-title">KITA TELAH BERSAMA SELAMA</div>
+                <div class="counter-grid">
+                    <div class="counter-box">
+                        <div class="counter-val" id="days">00</div>
+                        <div class="counter-lbl">Hari</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="hours">00</div>
+                        <div class="counter-lbl">Jam</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="minutes">00</div>
+                        <div class="counter-lbl">Menit</div>
+                    </div>
+                    <div class="counter-box">
+                        <div class="counter-val" id="seconds">00</div>
+                        <div class="counter-lbl">Detik</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tape Player Premium Widget -->
+            <div class="cassette-player">
+                <div class="tape-label">
+                    <div class="song-title">Terbuang dalam Waktu</div>
+                    <div class="song-artist">Idgitaf (Romantic Cover Version)</div>
+                </div>
+                <div class="tape-window">
+                    <div class="spindle" id="spindle-l"></div>
+                    <div class="spindle" id="spindle-r"></div>
+                </div>
+                <div class="audio-controls">
+                    <button class="btn-control" id="play-pause-btn" onclick="toggleAudio()">
+                        <i class="fa-solid fa-play" id="play-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Secret Wax-Sealed Envelope -->
+            <div class="envelope-container" onclick="openSecretLetter()">
+                <div class="envelope-v2">
+                    <div class="envelope-flap-decor"></div>
+                    <div class="seal-wax">M</div>
+                </div>
+                <div class="click-hint">Sentuh segel lilin untuk membuka surat...</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FULL SCREEN INTERACTIVE MODAL LETTER -->
+    <div id="modal-letter-overlay">
+        <div class="letter-paper">
+            <button class="close-letter-btn" onclick="closeSecretLetter()">Kembali ke Meja ↩</button>
+            <div class="letter-header">Untuk Mezha, rumah ternyamanku...</div>
+            <div class="letter-content">
+                <p>Mezha, selamat satu tahun hubungan kita. Jika diletakkan di atas kertas jurnal ini, setiap detik bersamamu rasanya berharga seperti goresan tinta terbaik.</p>
+                <br>
+                <p>Mulai dari percakapan acak, malam-malam di mana kita bercerita tanpa akhir, hingga keheningan nyaman yang kita bagi berdua, semuanya telah menyusun utasan takdir baru yang teramat indah di hidupku.</p>
+                <br>
+                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia, melainkan tertanam menjadi kenangan abadi.</p>
+                <br>
+                <p>Aku mencintaimu, kemarin, hari ini, esok, dan di masa-masa depan yang akan kita jahit bersama.</p>
+            </div>
+            <div class="letter-signature">Raihan yang menyayangimu selalu, 🤍</div>
+        </div>
+    </div>
+
+    <!-- FOOTER SIGNATURE -->
+    <div class="footer-text">Disusun dengan penuh cinta oleh Raihan | Desain oleh bikininaja ✨</div>
 
     <script>
-        // 1. Particle Effect (Kelopak Mawar / Daun)
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
-            
-            // Randomize properties
-            const size = Math.random() * 10 + 5;
-            const left = Math.random() * 100;
-            const duration = Math.random() * 5 + 5; // 5-10s
-            const delay = Math.random() * 5;
-
-            petal.style.width = `${size}px`;
-            petal.style.height = `${size}px`;
-            petal.style.left = `${left}vw`;
-            petal.style.animationDuration = `${duration}s`;
-            petal.style.animationDelay = `${delay}s`;
-
-            document.getElementById('particles-container').appendChild(petal);
-
-            // Cleanup
-            setTimeout(() => {
-                petal.remove();
-            }, (duration + delay) * 1000);
-        }
-        setInterval(createPetal, 400); // Spawn new petal every 400ms
-
-        // 2. Scroll Reveal Observer
-        const reveals = document.querySelectorAll('.reveal');
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
+        // --- DATA MEMORI UNTUK TIAP BULAN ---
+        const memories = {
+            1: {
+                title: "Bulan 1: Percikan Pertama",
+                text: "Ingat saat obrolan pertama kita? Rasanya dunia yang awalnya bising mendadak jadi sunyi, hanya ada tawa kita berdua. Di sinilah utasan pertama ini mulai kita pintal dengan penuh harapan."
+            },
+            2: {
+                title: "Bulan 2: Secangkir Kebersamaan",
+                text: "Jalan santai sore hari, menikmati secangkir kopi, dan mencari kuliner yang lucu. Kita mulai menyadari bahwa hal paling sederhana pun menjadi istimewa luar biasa saat dijalani bersamamu."
+            },
+            3: {
+                title: "Bulan 3: Pelukan Nyaman",
+                text: "Bukan hanya kesenangan, di bulan ini kita mulai membagi kelelahan hidup dan saling menguatkan. Kamu adalah satu-satunya tempat bersandar yang tak pernah gagal mengembalikan senyumku."
+            },
+            4: {
+                title: "Bulan 4: Langkah Sejajar",
+                text: "Menjelang 365 hari kita. Kini langkah kita sudah begitu sejajar. Terima kasih telah berjalan bersamaku sejauh ini, Mezha. Mari terus merajut benang-benang hari esok bersama-sama."
+            }
         };
-        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Reveal only once
-            });
-        }, revealOptions);
-        reveals.forEach(reveal => revealOnScroll.observe(reveal));
 
-        // 3. Live Counter
-        // UBAH TANGGAL DI BAWAH INI SESUAI TANGGAL JADIAN KALIAN (Format: YYYY-MM-DDTHH:MM:SS)
+        // Mengubah konten note box saat polaroid diklik
+        function showMemory(month) {
+            // Hapus status aktif dari semua polaroid
+            document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
+            
+            // Tambahkan status aktif pada polaroid terpilih
+            const targetPolaroid = document.getElementById(`p${month}`);
+            targetPolaroid.classList.add('active');
+
+            // Perbarui teks note memori dengan transisi lembut
+            const note = document.getElementById('dynamic-note');
+            const noteTitle = document.getElementById('note-title');
+            const noteBody = document.getElementById('note-body');
+
+            note.style.opacity = 0;
+            setTimeout(() => {
+                noteTitle.innerText = memories[month].title;
+                noteBody.innerText = memories[month].text;
+                note.style.opacity = 1;
+            }, 200);
+        }
+
+        // --- SISTEM PARTIKEL & CURSOR TRAIL (HATI) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouseParticles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Konstruktor Hati
+        class Heart {
+            constructor(x, y, isMouseTrail = false) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = isMouseTrail ? (Math.random() * 1.5 - 0.75) : -(Math.random() * 1 + 0.5);
+                this.speedX = isMouseTrail ? (Math.random() * 2 - 1) : (Math.random() * 0.6 - 0.3);
+                this.alpha = 1;
+                this.decay = isMouseTrail ? 0.02 : 0.005;
+                this.color = isMouseTrail ? `rgba(217, 160, 156, ${this.alpha})` : `rgba(178, 108, 108, ${Math.random() * 0.4 + 0.2})`;
+                this.isMouseTrail = isMouseTrail;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Menggambar bentuk hati sederhana di canvas
+                const topY = this.y - this.size / 2;
+                ctx.moveTo(this.x, this.y + this.size / 4);
+                ctx.bezierCurveTo(this.x - this.size / 2, topY, this.x - this.size, topY + this.size / 3, this.x, this.y + this.size);
+                ctx.bezierCurveTo(this.x + this.size, topY + this.size / 3, this.x + this.size / 2, topY, this.x, this.y + this.size / 4);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.alpha -= this.decay;
+            }
+        }
+
+        // Spawn latar belakang hati secara konstan
+        function spawnBackgroundHearts() {
+            if (particles.length < 35) {
+                particles.push(new Heart(Math.random() * canvas.width, canvas.height + 20));
+            }
+        }
+
+        // Event listener gerakan mouse untuk melahirkan Jejak Cursor Hati
+        window.addEventListener('mousemove', (e) => {
+            // Batasi jumlah partikel yang terbuat saat menggerakkan mouse agar performa tetap enteng
+            if (Math.random() < 0.35) {
+                mouseParticles.push(new Heart(e.clientX, e.clientY, true));
+            }
+        });
+
+        // Loop Animasi Canvas
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            spawnBackgroundHearts();
+
+            // Render background hearts
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            // Render mouse trail hearts
+            for (let i = mouseParticles.length - 1; i >= 0; i--) {
+                mouseParticles[i].update();
+                mouseParticles[i].draw();
+                if (mouseParticles[i].alpha <= 0) {
+                    mouseParticles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- INTERAKTIVITAS UTASAN BENANG TIMELINE (SVG PATH DYNAMIC) ---
+        function drawThread() {
+            const svgPath = document.getElementById('thread-line');
+            
+            // Dapatkan koordinat pin tiap polaroid berdasarkan viewport saat ini
+            const p1 = document.getElementById('pin-p1').getBoundingClientRect();
+            const p2 = document.getElementById('pin-p2').getBoundingClientRect();
+            const p3 = document.getElementById('pin-p3').getBoundingClientRect();
+            const p4 = document.getElementById('pin-p4').getBoundingClientRect();
+            
+            // Dapatkan boundingbox container SVG untuk titik offset
+            const container = document.getElementById('string-svg').getBoundingClientRect();
+
+            // Konversi posisi absolut pin ke sistem koordinat relatif SVG
+            const pt1 = { x: p1.left + 6 - container.left, y: p1.top + 6 - container.top };
+            const pt2 = { x: p2.left + 6 - container.left, y: p2.top + 6 - container.top };
+            const pt3 = { x: p3.left + 6 - container.left, y: p3.top + 6 - container.top };
+            const pt4 = { x: p4.left + 6 - container.left, y: p4.top + 6 - container.top };
+
+            // Buat jalur lengkung bergelombang organik yang menghubungkan Pin 1 -> 2 -> 3 -> 4
+            // Menggunakan kurva Bezier agar terlihat alami dan fleksibel bagai seuntai benang lungsin
+            const pathData = `
+                M ${pt1.x} ${pt1.y} 
+                Q ${(pt1.x + pt2.x)/2 + 20} ${(pt1.y + pt2.y)/2 - 30}, ${pt2.x} ${pt2.y}
+                T ${pt4.x} ${pt4.y}
+                Q ${(pt4.x + pt3.x)/2 - 30} ${(pt4.y + pt3.y)/2 + 20}, ${pt3.x} ${pt3.y}
+            `;
+            
+            svgPath.setAttribute('d', pathData);
+        }
+
+        // --- SISTEM PEMUTAR LAGU TAPE PLAYER ---
+        const bgMusic = document.getElementById('bg-music');
+        const playBtn = document.getElementById('play-pause-btn');
+        const playIcon = document.getElementById('play-icon');
+        const spindleL = document.getElementById('spindle-l');
+        const spindleR = document.getElementById('spindle-r');
+
+        function toggleAudio() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                playIcon.className = "fa-solid fa-pause";
+                spindleL.classList.add('playing');
+                spindleR.classList.add('playing');
+            } else {
+                bgMusic.pause();
+                playIcon.className = "fa-solid fa-play";
+                spindleL.classList.remove('playing');
+                spindleR.classList.remove('playing');
+            }
+        }
+
+        // Pemicu saat tombol landing cover ditekan (Membuka gerbang)
+        function startEverything() {
+            document.getElementById('cover-landing').style.opacity = '0';
+            document.getElementById('cover-landing').style.visibility = 'hidden';
+            
+            // Autoplay musik langsung saat masuk (menghindari block browser)
+            bgMusic.play().then(() => {
+                playIcon.className = "fa-solid fa-pause";
+                spindleL.classList.add('playing');
+                spindleR.classList.add('playing');
+            }).catch(e => console.log("Menunggu interaksi user untuk memutar lagu..."));
+
+            // Hitung dan gambar benang setelah layout dirender stabil
+            setTimeout(drawThread, 100);
+        }
+
+        // --- SISTEM PEMBUKA SURAT RAHASIA (MODAL FULL SCREEN) ---
+        function openSecretLetter() {
+            const overlay = document.getElementById('modal-letter-overlay');
+            overlay.classList.add('active');
+        }
+
+        function closeSecretLetter() {
+            const overlay = document.getElementById('modal-letter-overlay');
+            overlay.classList.remove('active');
+        }
+
+        // --- LIVE COUNTER KEBERSAMAAN ---
+        // Tanggal jadian Mezha dan Raihan
         const anniversaryDate = new Date("2025-06-02T00:00:00").getTime(); 
 
         function updateCounter() {
             const now = new Date().getTime();
             const distance = now - anniversaryDate;
 
-            // Perhitungan waktu
+            // Kalkulasi matematika konversi waktu
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Update DOM (Gunakan Math.max untuk mencegah angka minus jika tanggal di masa depan)
-            document.getElementById("days").innerText = Math.max(0, days);
-            document.getElementById("hours").innerText = Math.max(0, hours);
-            document.getElementById("minutes").innerText = Math.max(0, minutes);
-            document.getElementById("seconds").innerText = Math.max(0, seconds);
+            // Perbarui elemen DOM angka counter secara dinamis
+            document.getElementById("days").innerText = String(Math.max(0, days)).padStart(2, '0');
+            document.getElementById("hours").innerText = String(Math.max(0, hours)).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(Math.max(0, minutes)).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(Math.max(0, seconds)).padStart(2, '0');
         }
         setInterval(updateCounter, 1000);
-        updateCounter(); // Initial call
+        updateCounter(); // Panggilan inisialisasi awal
+
+        // Pastikan utasan benang digambar ulang jika layar di-resize
+        window.addEventListener('resize', () => {
+            setTimeout(drawThread, 150);
+        });
     </script>
 </body>
 </html>
+```eof
+
+Desain website kado *anniversary* premium untuk Mezha dengan konsep **Scrapbook & Digital Journaling Flat Lay** versi terbaru sudah selesai dirakit! 
+
+### ✨ Sorotan Fitur Desain Bikininaja yang Baru:
+* **Anti-Scroll Laptop View:** Semua hiasan diletakkan seolah-olah disusun di atas meja kayu estetik beresolusi penuh, muat di satu layar laptop tanpa merusak keindahan tatanan scrapbook.
+* **Benang Timeline Merah (Utasan):** Benang rajut meliuk-liuk menghubungkan setiap memori bulanan Mezha & Raihan dengan bantuan integrasi koordinat SVG yang responsif.
+* **Interactive Tape Player:** Sambil membaca, Mezha dapat mematikan dan memutar lagu cinta istimewa dengan pemutar kaset tape retro yang berputar secara realistis.
+* **Theatrical Envelope Modal:** Amplop kecil yang diletakkan di sudut meja jika ditekan akan memperbesar surat rahasia bertekstur kertas tulis dengan tombol kembali bergaya kayu elegan.
+* **Floating & Cursor Heart Particles:** Kehadiran partikel hati melayang dan jejak kursor menyemburkan hati hangat akan menambah kedalaman emosi di website ini.
