@@ -3,228 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary</title>
-    <!-- Import Font Elegan dari Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Our Journey | Happy Anniversary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Reset & Dasar */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* === CSS RESET & BASE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(to bottom, #020111 0%, #20124d 100%);
+            background: linear-gradient(to bottom, #020111 0%, #150a33 50%, #20124d 100%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* === PRELOADER === */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #020111; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; color: #f9d71c;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+        /* === CANVAS BINTANG === */
+        #star-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; pointer-events: none;
+        }
+
+        /* === LAYOUTING === */
+        section {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
             text-align: center;
         }
 
-        /* Canvas untuk Efek Bintang */
-        #star-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none; /* Agar tidak menghalangi klik */
+        /* === TYPOGRAPHY & COLORS === */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: #f9d71c; margin-bottom: 1rem; }
+        h1 { font-size: 4rem; text-shadow: 0 0 20px rgba(249, 215, 28, 0.4); }
+        h2 { font-size: 3rem; }
+        p { font-size: 1.1rem; line-height: 1.8; color: #e0e0e0; max-width: 600px; margin: 0 auto; }
+        .hint { font-size: 0.9rem; font-style: italic; opacity: 0.6; margin-top: 15px; }
+
+        /* === SCROLL REVEAL ANIMATION (Kunci Elegan) === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Section Layout */
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            position: relative;
+        /* === HERO SECTION === */
+        .scroll-down-indicator {
+            position: absolute; bottom: 40px;
+            width: 30px; height: 50px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 20px;
+        }
+        .scroll-down-indicator::before {
+            content: ''; position: absolute; top: 10px; left: 50%;
+            width: 6px; height: 6px; background: #fff;
+            border-radius: 50%; transform: translateX(-50%);
+            animation: scrollMove 2s infinite;
+        }
+        @keyframes scrollMove {
+            0% { top: 10px; opacity: 1; }
+            100% { top: 30px; opacity: 0; }
         }
 
-        /* Tipografi */
-        h1, h2 {
-            font-family: 'Playfair Display', serif;
-            color: #f9d71c; /* Soft Gold */
-            margin-bottom: 1rem;
+        /* === GALLERY GRID === */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; width: 100%; max-width: 900px;
+            margin-top: 40px;
         }
-        h1 { font-size: 3.5rem; text-shadow: 0 0 20px rgba(249, 215, 28, 0.5); }
-        h2 { font-size: 2.5rem; }
-        p { font-size: 1.1rem; line-height: 1.6; color: #e0e0e0; }
-        
-        .hint {
-            font-size: 0.9rem;
-            font-style: italic;
-            opacity: 0.7;
-            margin-top: 10px;
+        .gallery-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
         }
-
-        /* Komponen Timeline Sederhana */
-        .timeline-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            border-color: #f9d71c;
         }
-        .polaroid {
-            background: white;
-            padding: 10px 10px 30px 10px;
-            color: #333;
-            border-radius: 4px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transform: rotate(-2deg);
-            transition: transform 0.3s ease;
-            width: 250px;
-        }
-        .polaroid:nth-child(even) { transform: rotate(3deg); }
-        .polaroid:hover {
-            transform: scale(1.05) rotate(0deg);
-            z-index: 10;
-        }
-        .polaroid-img {
-            width: 100%;
-            height: 200px;
-            background: #ddd; /* Ganti dengan tag <img> nantinya */
-            border-radius: 2px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
+        .gallery-item img {
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: 8px; margin-bottom: 15px;
         }
 
-        /* Amplop Surat Interaktif */
-        .envelope-wrapper {
-            cursor: pointer;
-            transition: transform 0.3s;
+        /* === MUSIC PLAYER SECTION === */
+        .music-container {
+            margin-top: 30px; width: 100%; max-width: 400px;
+            background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .envelope-wrapper:hover {
-            transform: scale(1.1);
-        }
+
+        /* === INTERACTIVE ENVELOPE === */
+        .envelope-wrapper { cursor: pointer; transition: transform 0.3s; margin: 40px 0; }
+        .envelope-wrapper:hover { transform: scale(1.05); }
         .envelope {
-            width: 150px;
-            height: 100px;
-            background: #d4af37;
-            position: relative;
-            margin: 0 auto;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 180px; height: 120px; background: #d4af37;
+            position: relative; margin: 0 auto; border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .envelope::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-top: 50px solid #f1c40f;
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 90px solid transparent; border-right: 90px solid transparent;
+            border-top: 60px solid #f1c40f;
         }
         .letter-content {
-            display: none; /* Disembunyikan, akan muncul pakai JS */
-            background: rgba(255,255,255,0.9);
-            color: #222;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(249, 215, 28, 0.4);
+            display: none; background: rgba(255,255,255,0.95); color: #222;
+            padding: 30px; border-radius: 12px; margin-top: 20px;
+            max-width: 500px; box-shadow: 0 0 40px rgba(249, 215, 28, 0.3);
+            text-align: left;
         }
 
-        /* Counter */
-        .counter-box {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
+        /* === COUNTER === */
+        .counter-box { display: flex; gap: 20px; margin-top: 30px; justify-content: center; flex-wrap: wrap;}
         .time-unit {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.05); padding: 20px 25px;
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
+            min-width: 120px;
         }
-        .time-unit span {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #f9d71c;
-        }
+        .time-unit span { display: block; font-size: 2.5rem; font-weight: 600; color: #f9d71c; }
 
     </style>
 </head>
 <body>
 
-    <!-- Background Interaktif -->
+    <!-- Layar Loading -->
+    <div id="preloader">
+        <div class="loader-text">Merangkai Memori...</div>
+    </div>
+
+    <!-- Background Animasi -->
     <canvas id="star-canvas"></canvas>
 
-    <!-- Section 1: Hero Banner -->
+    <!-- Section 1: Hero (Cover) -->
     <section id="hero">
-        <h1>Happy 1st Anniversary,<br>Mezha</h1>
-        <p class="hint">(Gerakkan kursor atau scroll perlahan untuk melihat keajaiban)</p>
+        <h1 class="reveal">Happy 1st Anniversary,<br>Mezha</h1>
+        <p class="reveal" style="transition-delay: 0.2s;">Satu tahun penuh tawa, cerita, dan kebahagiaan.</p>
+        <div class="scroll-down-indicator reveal" style="transition-delay: 0.6s;"></div>
     </section>
 
-    <!-- Section 2: Timeline -->
-    <section id="timeline">
-        <h2>Perjalanan Kita</h2>
-        <p>Dari awal kenal dua tahun lalu, sampai hari ini.</p>
-        <div class="timeline-container">
-            <div class="polaroid">
-                <div class="polaroid-img">Foto 1.jpg</div>
-                <b>Pertama Kenal</b>
-                <p style="font-size: 0.8rem; margin-top:5px;">Masih malu-malu...</p>
+    <!-- Section 2: Soundtrack -->
+    <section id="music">
+        <h2 class="reveal">Lagu Kita</h2>
+        <p class="reveal">Putar lagu ini sambil melihat ke bawah.</p>
+        <div class="music-container reveal">
+            <!-- Embed Spotify (Kamu bisa ganti link src-nya dengan lagu favorit kalian) -->
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3UmaczJpikHgJFyBTAJVoz?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- Section 3: Gallery (Memory Lane) -->
+    <section id="gallery">
+        <h2 class="reveal">Memory Lane</h2>
+        <p class="reveal">Beberapa momen kecil yang sangat berarti.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <!-- Ganti src dengan link foto asli -->
+                <img src="https://via.placeholder.com/400x300/222/fff?text=Foto+Pertama" alt="Momen 1">
+                <h3 style="font-size:1.2rem;">Awal Cerita</h3>
+                <p style="font-size:0.9rem;">Masih canggung dan malu-malu.</p>
             </div>
-            <div class="polaroid">
-                <div class="polaroid-img">Foto 2.jpg</div>
-                <b>Hari Ini</b>
-                <p style="font-size: 0.8rem; margin-top:5px;">1 Tahun Jadian!</p>
+            <div class="gallery-item reveal" style="transition-delay: 0.2s;">
+                <img src="https://via.placeholder.com/400x300/222/fff?text=Jalan-Jalan" alt="Momen 2">
+                <h3 style="font-size:1.2rem;">Liburan Bareng</h3>
+                <p style="font-size:0.9rem;">Perjalanan pertama kita.</p>
+            </div>
+            <div class="gallery-item reveal" style="transition-delay: 0.4s;">
+                <img src="https://via.placeholder.com/400x300/222/fff?text=Momen+Lucu" alt="Momen 3">
+                <h3 style="font-size:1.2rem;">Hal Konyol</h3>
+                <p style="font-size:0.9rem;">Ketawa sampai perut sakit.</p>
             </div>
         </div>
     </section>
 
-    <!-- Section 3: Love Letter -->
+    <!-- Section 4: Pesan Rahasia -->
     <section id="letter">
-        <h2>Pesan Rahasia</h2>
-        <p class="hint">Klik amplop di bawah ini</p>
-        <div class="envelope-wrapper" onclick="openLetter()">
+        <h2 class="reveal">Pesan Rahasia</h2>
+        <p class="reveal hint">Klik amplop ini untuk membuka...</p>
+        <div class="envelope-wrapper reveal" onclick="openLetter()">
             <div class="envelope"></div>
         </div>
         <div id="myLetter" class="letter-content">
-            <h3 style="font-family: 'Playfair Display', serif; margin-bottom:10px;">Untuk Kamu,</h3>
-            <p style="font-size: 0.95rem;">Terima kasih sudah menemani perjalananku. Ini adalah kado kecil yang kubuat khusus untukmu. Semoga kamu suka kejutannya!</p>
+            <h3 style="font-family: 'Playfair Display', serif; margin-bottom:15px; border-bottom: 1px solid #ddd; padding-bottom:10px;">Untuk Mezha,</h3>
+            <p style="color:#444; margin-bottom:10px;">Hai, terima kasih sudah bertahan dan berjuang bersama selama 365 hari terakhir.</p>
+            <p style="color:#444; margin-bottom:10px;">Website ini sengaja aku buat khusus untuk merayakan hari kita. Semoga di tahun-tahun berikutnya, kita bisa terus mengisi "Memory Lane" di atas dengan lebih banyak foto.</p>
+            <p style="color:#444; font-weight:600; margin-top:20px;">Salam Sayang,</p>
+            <p style="color:#444; font-family: 'Playfair Display', serif; font-size:1.5rem;">Raihan</p>
         </div>
     </section>
 
-    <!-- Section 4: Counter -->
+    <!-- Section 5: Counter & Footer -->
     <section id="counter">
-        <h2>Waktu Bersama</h2>
-        <div class="counter-box">
+        <h2 class="reveal">Waktu Bersama</h2>
+        <div class="counter-box reveal">
             <div class="time-unit"><span id="days">365</span>Hari</div>
             <div class="time-unit"><span id="hours">12</span>Jam</div>
             <div class="time-unit"><span id="mins">45</span>Menit</div>
+            <div class="time-unit"><span id="secs">00</span>Detik</div>
         </div>
-        <p style="margin-top: 30px; opacity: 0.5;">Coded with ❤️ by bikininaja</p>
+        <p style="margin-top: 50px; opacity: 0.4; font-size:0.8rem;">Desain eksklusif oleh bikininaja. ✨</p>
     </section>
 
     <script>
-        /* === LOGIKA MEMBUKA SURAT === */
+        /* === PRELOADER LOGIC === */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 1000);
+            }, 1500); // Loading pura-pura selama 1.5 detik
+        });
+
+        /* === SCROLL REVEAL (INTERSECTION OBSERVER) === */
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, revealOptions);
+
+        reveals.forEach(reveal => { revealOnScroll.observe(reveal); });
+
+        /* === SURAT INTERAKTIF === */
         function openLetter() {
             const letter = document.getElementById('myLetter');
             if(letter.style.display === 'block') {
                 letter.style.display = 'none';
             } else {
                 letter.style.display = 'block';
-                // Trigger ekstra partikel bintang saat surat dibuka
-                for(let i=0; i<30; i++) {
-                    particles.push(new Particle(window.innerWidth/2, window.innerHeight/2 + 200, true));
+                letter.classList.add('reveal', 'active');
+                for(let i=0; i<40; i++) {
+                    particles.push(new Particle(window.innerWidth/2, window.innerHeight/2 + 100, true));
                 }
+                setTimeout(() => {
+                    letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             }
         }
 
-        /* === LOGIKA CANVAS INTERAKTIF (Bintang & Kursor) === */
+        /* === LIVE COUNTER (DETIK BERJALAN) === */
+        // Set tanggal jadian kalian (Format: Tahun, Bulan (0-11), Tanggal)
+        // Bulan dimulai dari 0 (Januari=0, Februari=1, dst).
+        const startDate = new Date(2025, 3, 10).getTime(); // Contoh: 10 April 2025
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = now - startDate;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("secs").innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
+
+        /* === CANVAS BINTANG === */
         const canvas = document.getElementById('star-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -233,30 +297,18 @@
         let particles = [];
         const mouse = { x: undefined, y: undefined };
 
-        // Deteksi pergerakan mouse
         window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-            // Tambahkan partikel setiap kali mouse bergerak (Cursor Trail)
-            for (let i = 0; i < 2; i++) {
-                particles.push(new Particle(mouse.x, mouse.y, false));
-            }
+            mouse.x = event.x; mouse.y = event.y;
+            for (let i = 0; i < 2; i++) { particles.push(new Particle(mouse.x, mouse.y, false)); }
         });
-
-        // Deteksi layar saat di-resize
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         });
 
         class Particle {
             constructor(x, y, isFallingStar) {
-                this.x = x;
-                this.y = y;
-                this.isFallingStar = isFallingStar;
-                
+                this.x = x; this.y = y; this.isFallingStar = isFallingStar;
                 if (this.isFallingStar) {
-                    // Bintang jatuh dari atas
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * -100;
                     this.size = Math.random() * 3 + 1;
@@ -264,60 +316,39 @@
                     this.speedY = Math.random() * 3 + 2;
                     this.color = '#ffffff';
                 } else {
-                    // Efek kursor kelap-kelip
                     this.size = Math.random() * 4 + 1;
                     this.speedX = Math.random() * 3 - 1.5;
                     this.speedY = Math.random() * 3 - 1.5;
                     this.color = Math.random() > 0.5 ? '#f9d71c' : '#ffffff';
                 }
-                this.life = 1; // opacity
+                this.life = 1;
             }
-
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.speedX; this.y += this.speedY;
                 if (!this.isFallingStar) {
-                    this.size -= 0.05; // Partikel kursor mengecil
-                    this.life -= 0.02; // Partikel kursor menghilang
+                    this.size -= 0.05; this.life -= 0.02;
                 } else {
-                    // Bintang jatuh terhapus kalau lewat layar bawah
                     if (this.y > canvas.height) this.size = 0; 
                 }
             }
-
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = Math.max(0, this.life);
-                ctx.beginPath();
-                // Gambar bentuk bintang (bulat bercahaya)
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillStyle = this.color; ctx.globalAlpha = Math.max(0, this.life);
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
                 ctx.globalAlpha = 1;
             }
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Tambahkan bintang jatuh secara acak
-            if (Math.random() < 0.05) {
-                particles.push(new Particle(0, 0, true));
-            }
-
-            // Loop untuk mengupdate dan menggambar partikel
+            if (Math.random() < 0.05) { particles.push(new Particle(0, 0, true)); }
             for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                
-                // Hapus partikel yang sudah mati / terlalu kecil
+                particles[i].update(); particles[i].draw();
                 if (particles[i].size <= 0.2 || particles[i].life <= 0) {
-                    particles.splice(i, 1);
-                    i--;
+                    particles.splice(i, 1); i--;
                 }
             }
             requestAnimationFrame(animate);
         }
-
         animate();
     </script>
 </body>
