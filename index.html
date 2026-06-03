@@ -11,752 +11,420 @@
     
     <style>
         :root {
-            --wood-dark: #1e110c; /* Meja kayu walnut hangat */
-            --paper-cream: #fbf7eb; /* Kertas journaling hangat */
-            --paper-aged: #f3ebd4; /* Kertas memo kuno */
-            --blush-pink: #d9a09c;
+            --desk-bg: #f4f2ed; 
+            --craft-paper: #cda377;
+            --craft-dark: #b88d60;
+            --paper-white: #fdfdfa;
             --rose-gold: #b26c6c;
-            --terracotta: #a84c3e;
-            --ink: #2b211f; /* Tinta pulpen cokelat tua */
-            --tape-color: rgba(217, 160, 156, 0.6);
-            --string-color: #9e2a2b; /* Warna benang utasan merah */
+            --ink: #2b211f;
+            --gold-trim: linear-gradient(135deg, #e6c783 0%, #c49c48 50%, #96711b 100%);
+            --metal-ring: linear-gradient(90deg, #444 0%, #ccc 30%, #fff 55%, #999 75%, #222 100%);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
 
         body {
-            background-color: var(--wood-dark);
+            background-color: var(--desk-bg);
             color: var(--ink);
             font-family: 'Courier Prime', monospace;
             height: 100vh;
             width: 100vw;
             overflow: hidden;
             position: relative;
-            background-image: 
-                radial-gradient(circle at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%),
-                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 4px),
-                repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 10px);
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0.05) 100%);
         }
 
-        h1, h2, h3, .handwriting {
-            font-family: 'Caveat', cursive;
-        }
+        h1, h2, h3, .handwriting { font-family: 'Caveat', cursive; }
 
-        /* --- Landing Page / Cover Jurnal --- */
+        /* =========================================
+           HALAMAN 1: LANDING COVER (WOODEN FLAT LAY)
+           ========================================= */
         #cover-landing {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: #2b1812;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            /* Latar belakang meja kayu rustic realistis */
+            background: url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?auto=format&fit=crop&w=1920&q=80') center/cover;
             z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s cubic-bezier(0.5, 0, 0, 1), visibility 1s;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
         }
-        .book-cover {
-            width: 450px;
-            height: 600px;
-            background: #4a2d24;
-            border-radius: 5px 25px 25px 5px;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.7), inset 5px 0 10px rgba(0,0,0,0.5);
-            border-left: 15px solid #2e1b15;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            text-align: center;
-            color: #f7ede2;
-            position: relative;
-            transition: transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+        .wood-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.1); /* Sedikit penggelap agar objek menonjol */
         }
-        .book-cover:hover {
-            transform: scale(1.02) rotate(-1deg);
+
+        /* 1. Amplop di Tengah */
+        .landing-envelope {
+            position: absolute; top: 48%; left: 45%; transform: translate(-50%, -50%) rotate(-6deg);
+            width: 380px; height: 250px; background-color: #d8c7b8;
+            box-shadow: 12px 20px 40px rgba(0,0,0,0.5); border-radius: 2px;
+            /* Garis tulisan samar di amplop */
+            background-image: repeating-linear-gradient(rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 25px);
         }
-        .book-cover-title {
-            font-size: 2.8rem;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            font-weight: 700;
+        .landing-envelope::before { /* Flap Bawah */
+            content: ''; position: absolute; bottom: 0; left: 0;
+            border-left: 190px solid transparent; border-right: 190px solid transparent; border-bottom: 130px solid #cbb6a3;
         }
-        .book-cover-subtitle {
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            opacity: 0.8;
-            margin-bottom: 40px;
+        .landing-envelope::after { /* Flap Atas (Tutup) */
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 190px solid transparent; border-right: 190px solid transparent; border-top: 140px solid #c2a893; z-index: 2;
         }
+        .landing-seal { /* Segel Lilin */
+            position: absolute; top: 120px; left: 165px; width: 50px; height: 50px;
+            background: radial-gradient(circle at 15px 15px, #9e241d, #6e120c);
+            border-radius: 50%; box-shadow: 2px 5px 10px rgba(0,0,0,0.4), inset 1px 1px 3px rgba(255,255,255,0.3);
+            z-index: 3; color: #fce2cf; display: flex; align-items: center; justify-content: center;
+            font-family: 'Special Elite'; font-weight: bold; font-size: 1.4rem;
+        }
+
+        /* 2. Kartu "Happy Anniversary" */
+        .landing-card {
+            position: absolute; top: 60%; left: 60%; transform: translate(-50%, -50%) rotate(5deg);
+            width: 340px; height: 220px; background: #fffcf5;
+            box-shadow: 15px 25px 45px rgba(0,0,0,0.4); z-index: 4; border-radius: 3px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            /* Tekstur kertas sangat halus */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .landing-card-title { font-family: 'Caveat', cursive; font-size: 3.5rem; color: #2b1510; line-height: 1; }
+        .landing-card-subtitle { font-family: 'Courier Prime'; font-size: 1rem; color: #666; margin-top: 5px; margin-bottom: 25px; }
         .open-btn {
-            background-color: var(--paper-cream);
-            color: var(--wood-dark);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 20px;
-            font-family: 'Courier Prime', monospace;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-            position: relative;
-            z-index: 1010;
+            background: #8c251e; color: #fff; border: none;
+            padding: 12px 35px; border-radius: 25px; font-family: 'Courier Prime';
+            font-weight: bold; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 6px 15px rgba(140, 37, 30, 0.4); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; z-index: 10;
         }
-        .open-btn:hover {
-            background-color: var(--blush-pink);
-            transform: translateY(-2px);
+        .open-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(140, 37, 30, 0.6); }
+
+        /* 3. Mawar Merah (Kiri) */
+        .landing-rose {
+            position: absolute; top: 25%; left: 10%; height: 450px;
+            transform: rotate(-30deg); pointer-events: none;
+            filter: drop-shadow(20px 30px 20px rgba(0,0,0,0.5)); z-index: 5;
         }
 
-        /* --- Canvas / Workspace Flat Lay --- */
-        #workspace {
-            display: grid;
-            grid-template-columns: 1.3fr 0.7fr;
-            width: 100%;
-            height: 100vh;
-            padding: 40px;
-            gap: 40px;
-            box-sizing: border-box;
-            align-items: center;
+        /* 4. Secangkir Kopi (Kanan Atas) */
+        .landing-coffee {
+            position: absolute; top: 15%; right: 15%; width: 140px; height: 140px;
+            background: #3c2415; border-radius: 50%; /* Isi kopi */
+            box-shadow: 20px 25px 35px rgba(0,0,0,0.6), inset -8px -8px 15px rgba(0,0,0,0.8), inset 5px 5px 10px rgba(255,255,255,0.1);
+            border: 12px solid #a66a41; /* Pinggiran cangkir tanah liat */
+            z-index: 2; pointer-events: none; transform: rotate(15deg);
+        }
+        .landing-coffee::before { /* Gagang cangkir */
+            content: ''; position: absolute; top: 25px; right: -40px; width: 50px; height: 70px;
+            border: 12px solid #a66a41; border-radius: 50%; z-index: -1; box-shadow: 15px 15px 25px rgba(0,0,0,0.5);
+        }
+        /* Asap Kopi Animasi CSS */
+        .steam {
+            position: absolute; top: -40px; left: 40px; width: 15px; height: 40px;
+            background: #fff; border-radius: 50%; filter: blur(8px); opacity: 0;
+            animation: steamRise 3s infinite ease-in;
+        }
+        .steam:nth-child(2) { left: 70px; animation-delay: 1.5s; width: 20px; }
+        @keyframes steamRise {
+            0% { transform: translateY(0) scaleX(1); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-60px) scaleX(2.5); opacity: 0; }
         }
 
-        /* --- Left Side: Jurnal Terbuka --- */
-        .journal-container {
-            background-color: var(--paper-cream);
-            height: 85vh;
-            border-radius: 4px 25px 25px 4px / 25px 4px 4px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 30px 0 50px rgba(0,0,0,0.08);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.15);
+
+        /* =========================================
+           HALAMAN 2: MESSY WORKSPACE FLAT LAY
+           ========================================= */
+        #workspace { width: 100vw; height: 100vh; position: relative; }
+
+        .scrapbook-binder {
+            position: absolute; top: 50%; left: 46%; transform: translate(-50%, -50%) rotate(-0.5deg);
+            width: 820px; height: 560px; background-color: var(--craft-paper);
+            border-radius: 6px; display: flex; z-index: 10;
+            box-shadow: 12px 25px 45px rgba(0,0,0,0.18), inset 0 0 40px rgba(0,0,0,0.15);
         }
-        .journal-container::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 2px; height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0) 50%, rgba(0,0,0,0.2));
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        .binder-spine {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 100%; display: flex; flex-direction: column;
+            justify-content: space-evenly; align-items: center; z-index: 30;
+        }
+        .ring-3d {
+            width: 12px; height: 52px; background: var(--metal-ring); border-radius: 6px;
+            box-shadow: -4px 6px 10px rgba(0,0,0,0.4), inset 1px 1px 2px rgba(255,255,255,0.7);
+            position: relative; z-index: 35;
+        }
+        .page-sheet { width: 50%; height: 100%; position: relative; padding: 35px; }
+        .sheet-left { border-right: 1px solid var(--craft-dark); box-shadow: inset -15px 0 25px rgba(0,0,0,0.05); }
+        .sheet-right { box-shadow: inset 15px 0 25px rgba(0,0,0,0.05); }
+        .string-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 25; }
+
+        .polaroid-card {
+            position: absolute; background: var(--paper-white); padding: 10px 10px 28px 10px;
+            box-shadow: 4px 10px 22px rgba(0,0,0,0.15); width: 165px; height: 190px;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 15;
+        }
+        .polaroid-card img { width: 100%; height: 125px; object-fit: cover; filter: contrast(95%) sepia(10%); }
+        .polaroid-caption { font-family: 'Caveat'; font-size: 1.3rem; text-align: center; margin-top: 6px; color: #3c2f2f; }
+        .polaroid-card:hover { transform: scale(1.06) rotate(0deg) !important; z-index: 50 !important; box-shadow: 10px 20px 35px rgba(0,0,0,0.25); }
+        .polaroid-card.active { box-shadow: 0 0 0 4px var(--paper-white), 0 12px 30px rgba(178,108,108,0.4); z-index: 45 !important; }
+
+        .gold-corner { position: absolute; width: 24px; height: 24px; background: var(--gold-trim); z-index: 5; box-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .g-tl { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .g-tr { top: -2px; right: -2px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+        .g-bl { bottom: -2px; left: -2px; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+        .g-br { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+        .anchor-dot { position: absolute; width: 6px; height: 6px; background: transparent; pointer-events: none; }
+
+        #p1 { top: 12%; left: 12%; transform: rotate(-7deg); }
+        #p2 { top: 46%; left: 44%; transform: rotate(4deg); }
+        #p3 { top: 8%; left: 42%; transform: rotate(9deg); }
+        #p4 { top: 52%; left: 14%; transform: rotate(-3deg); }
+
+        .journal-narrative {
+            position: absolute; bottom: 6%; left: 10%; width: 80%;
+            font-family: 'Caveat', cursive; font-size: 1.4rem; color: #3d2a1c;
+            line-height: 1.3; transform: rotate(-1deg); transition: opacity 0.3s ease;
         }
 
-        .journal-page {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
+        /* Aset Meja Halaman 2 */
+        .headphone-3d {
+            position: absolute; bottom: 5%; left: 4%; width: 140px; height: 150px;
+            cursor: pointer; z-index: 6; transform: rotate(-15deg);
+            filter: drop-shadow(10px 15px 12px rgba(0,0,0,0.22)); transition: transform 0.3s;
+        }
+        .headphone-3d:hover { transform: scale(1.04) rotate(-10deg); }
+        .headband {
+            width: 110px; height: 100px; border: 12px solid #2b2b2b;
+            border-bottom: none; border-radius: 60px 60px 0 0; position: absolute; top: 10px; left: 15px;
+            background: transparent; box-shadow: inset 1px 2px 3px rgba(255,255,255,0.2);
+        }
+        .earpad {
+            width: 38px; height: 65px; background: linear-gradient(to right, #1a1a1a, #333 70%, #111);
+            border-radius: 16px; position: absolute; bottom: 10px;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), 2px 4px 6px rgba(0,0,0,0.3);
+        }
+        .earpad-left { left: 0; } .earpad-right { right: 0; }
+        .music-pulse {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 1.5rem; color: var(--rose-gold); opacity: 0;
+        }
+        .headphone-3d.playing .music-pulse { opacity: 1; animation: noteBounce 1s infinite alternate; }
+        .cable-svg { position: absolute; bottom: -30px; left: 70px; width: 180px; height: 90px; pointer-events: none; z-index: 5; }
+
+        .sharpy-marker {
+            position: absolute; top: 38%; right: 4%; width: 22px; height: 190px;
+            background: linear-gradient(to right, #151515, #3a3a3a 60%, #111);
+            border-radius: 11px; transform: rotate(18deg);
+            box-shadow: 8px 12px 16px rgba(0,0,0,0.25); z-index: 8;
+        }
+        .sharpy-cap {
+            width: 24px; height: 55px; background: linear-gradient(to right, #0a0a0a, #222 60%, #000);
+            border-radius: 12px 12px 4px 4px; position: absolute; top: -2px; left: -1px; border-bottom: 2px solid #444;
         }
 
-        .page-left {
-            border-right: 1px dashed rgba(0,0,0,0.05);
+        .scissors-3d {
+            position: absolute; bottom: 6%; right: 18%; width: 110px; height: 160px;
+            transform: rotate(-35deg); filter: drop-shadow(6px 12px 8px rgba(0,0,0,0.2)); z-index: 7;
+        }
+        .blade { width: 14px; height: 100px; background: linear-gradient(90deg, #bdc3c7, #fff 50%, #7f8c8d); position: absolute; top: 0; border-radius: 0 0 4px 4px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .blade-1 { left: 45px; transform: rotate(3deg); transform-origin: top center; }
+        .blade-2 { left: 49px; transform: rotate(-3deg); transform-origin: top center; z-index: 2; }
+        .handle { width: 42px; height: 55px; border: 8px solid #2c3e50; border-radius: 50%; position: absolute; bottom: 10px; background: transparent; box-shadow: inset 1px 2px 3px rgba(255,255,255,0.1); }
+        .handle-1 { left: 15px; } .handle-2 { right: 15px; }
+        .pivot-screw { width: 6px; height: 6px; background: #555; border-radius: 50%; position: absolute; top: 85px; left: 51px; z-index: 5; }
+
+        .notepad-sheet {
+            position: absolute; top: 12%; right: 6%; width: 230px; background: var(--paper-white);
+            padding: 22px; transform: rotate(6deg); box-shadow: 8px 15px 30px rgba(0,0,0,0.12);
+            border-top: 14px solid #dcdad4; z-index: 9;
+            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+        .notepad-sheet h3 { font-family: 'Caveat'; font-size: 1.8rem; color: var(--rose-gold); margin-bottom: 12px; font-weight: 700; text-align: center;}
+        .counter-row { font-family: 'Special Elite'; font-size: 1.15rem; margin-bottom: 6px; color: #3a3230; text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1); }
+        .pushpin-3d {
+            position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 14px; height: 14px; background: radial-gradient(circle at 4px 4px, #e74c3c, #c0392b);
+            border-radius: 50%; box-shadow: 1px 6px 6px rgba(0,0,0,0.4); z-index: 15;
         }
 
-        /* Judul Jurnal */
-        .journal-title-box {
-            margin-bottom: 20px;
+        .envelope-craft {
+            position: absolute; top: -25px; left: 18%; width: 190px; height: 125px;
+            background-color: #d2a49b; box-shadow: 6px 12px 28px rgba(0,0,0,0.22);
+            border-radius: 2px; transform: rotate(-10deg); cursor: pointer; transition: transform 0.3s; z-index: 5;
         }
-        .journal-title {
-            font-size: 3.5rem;
-            color: var(--terracotta);
-            line-height: 1.1;
+        .envelope-craft:hover { transform: scale(1.05) rotate(-3deg); z-index: 60; }
+        .envelope-craft::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 0;
+            border-left: 95px solid transparent; border-right: 95px solid transparent; border-bottom: 65px solid #bd8f86;
         }
-        .journal-date {
-            font-size: 1.1rem;
-            font-style: italic;
-            opacity: 0.7;
-            margin-top: 5px;
-        }
-
-        /* Tempat Memo Penjelas Memori */
-        .story-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .memory-note {
-            background-color: var(--paper-aged);
-            padding: 25px;
-            border-radius: 2px;
-            box-shadow: 3px 5px 12px rgba(0,0,0,0.1);
-            transform: rotate(-1.5deg);
-            width: 100%;
-            border-left: 4px solid var(--rose-gold);
-            font-size: 1rem;
-            line-height: 1.5;
-            position: relative;
-        }
-        .memory-note::before {
-            content: '📌';
-            position: absolute;
-            top: -12px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.4rem;
-        }
-        .memory-note-title {
-            font-family: 'Special Elite', serif;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--terracotta);
+        .wax-seal-3d {
+            position: absolute; top: 42px; left: 77px; width: 36px; height: 36px;
+            background: radial-gradient(circle at 10px 10px, #9e241d, #6e120c); border-radius: 50%;
+            color: #fce2cf; font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+            z-index: 10; box-shadow: 2px 4px 6px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.2);
+            font-family: 'Special Elite'; font-weight: bold;
         }
 
-        /* Page Right: Timeline Utasan (Scrapbook String) */
-        .page-right {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .string-svg-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .polaroids-workspace {
-            position: relative;
-            width: 100%;
-            height: 90%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 20px;
-            z-index: 2;
-        }
-
-        .polaroid-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .pin-point {
-            position: absolute;
-            width: 12px; height: 12px;
-            background: radial-gradient(circle at 4px 4px, #f25c54, #9e2a2b);
-            border-radius: 50%;
-            box-shadow: 1px 2px 5px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-
-        .polaroid {
-            background-color: #fff;
-            padding: 10px 10px 25px 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            width: 155px;
-            height: 195px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            transform-origin: center;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .polaroid img {
-            width: 135px;
-            height: 135px;
-            object-fit: cover;
-            border: 1px solid #eee;
-        }
-        .polaroid-caption {
-            font-family: 'Caveat', cursive;
-            font-size: 1.3rem;
-            text-align: center;
-            margin-top: 5px;
-            color: var(--ink);
-            white-space: nowrap;
-        }
-
-        #p1 { transform: rotate(-6deg) scale(0.95); }
-        #p2 { transform: rotate(5deg) scale(0.95); }
-        #p3 { transform: rotate(-4deg) scale(0.95); }
-        #p4 { transform: rotate(7deg) scale(0.95); }
-
-        .polaroid:hover {
-            transform: scale(1.05) rotate(0deg) !important;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-            z-index: 15;
-        }
-        .polaroid.active {
-            box-shadow: 0 0 0 3px var(--rose-gold), 0 15px 30px rgba(0,0,0,0.3);
-            transform: scale(1.08) rotate(0deg) !important;
-            z-index: 14;
-        }
-
-        /* --- Right Side: Desk Accessories --- */
-        .desk-accessories {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        /* Live Counter */
-        .counter-card {
-            background-color: var(--paper-cream);
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
-            text-align: center;
-            position: relative;
-            transform: rotate(1.5deg);
-            border-top: 8px solid var(--terracotta);
-        }
-        .counter-card::before {
-            content: '';
-            position: absolute;
-            top: -12px; left: calc(50% - 15px);
-            width: 30px; height: 10px;
-            background: #888;
-            border-radius: 3px;
-        }
-        .counter-title {
-            font-family: 'Special Elite', serif;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            color: var(--terracotta);
-            letter-spacing: 1px;
-        }
-        .counter-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .counter-box {
-            background-color: rgba(0,0,0,0.03);
-            padding: 8px 4px;
-            border-radius: 4px;
-            border: 1px dashed rgba(0,0,0,0.1);
-        }
-        .counter-val {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--ink);
-        }
-        .counter-lbl {
-            font-family: 'Caveat', cursive;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Cassette Player */
-        .cassette-player {
-            background: linear-gradient(135deg, #2d2624, #181413);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 5px 12px 24px rgba(0,0,0,0.5);
-            border: 3px solid #3d3431;
-            position: relative;
-            transform: rotate(-1deg);
-        }
-        .tape-label {
-            background-color: #ededed;
-            border-radius: 4px;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-            border-left: 10px solid var(--blush-pink);
-            border-right: 10px solid var(--rose-gold);
-        }
-        .song-title {
-            font-family: 'Courier Prime', monospace;
-            font-weight: bold;
-            font-size: 0.8rem;
-            color: #111;
-        }
-        .song-artist {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 2px;
-        }
-        .tape-window {
-            height: 45px;
-            background-color: #0b0909;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 30px;
-            margin-bottom: 15px;
-            position: relative;
-            box-shadow: inset 0 3px 10px rgba(0,0,0,0.8);
-        }
-        .spindle {
-            width: 24px; height: 24px;
-            background-color: #555;
-            border-radius: 50%;
-            border: 4px dashed #999;
-            animation: spin 3s linear infinite paused;
-        }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        .spindle.playing {
-            animation-play-state: running;
-        }
-        .tape-window::after {
-            content: '📼';
-            font-size: 1.5rem;
-            opacity: 0.2;
-            position: absolute;
-        }
-        .audio-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .btn-control {
-            background-color: #3d3431;
-            color: #eee;
-            border: 1px solid #4d423e;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-            transition: all 0.2s;
-        }
-        .btn-control:hover {
-            background-color: var(--rose-gold);
-            transform: scale(1.05);
-        }
-
-        /* Secret Envelope */
-        .envelope-container {
-            align-self: center;
-            margin-bottom: 10px;
-            transform: rotate(-3deg);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .envelope-container:hover {
-            transform: scale(1.05) rotate(-1deg);
-        }
-        .envelope-v2 {
-            width: 220px;
-            height: 140px;
-            background-color: #c09088;
-            box-shadow: 4px 10px 25px rgba(0,0,0,0.4);
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.1);
-        }
-        .envelope-v2::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 0;
-            border-left: 110px solid transparent;
-            border-right: 110px solid transparent;
-            border-bottom: 70px solid #aa7870;
-            z-index: 3;
-        }
-        .envelope-v2::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%);
-            z-index: 2;
-        }
-        .envelope-flap-decor {
-            position: absolute;
-            top: 0; left: 0;
-            width: 0; height: 0;
-            border-left: 110px solid transparent;
-            border-right: 110px solid transparent;
-            border-top: 75px solid #b6827a;
-            z-index: 4;
-        }
-        .seal-wax {
-            position: absolute;
-            top: 60px; left: calc(50% - 20px);
-            width: 40px; height: 40px;
-            background-color: #8c251e;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fdd5bd;
-            font-size: 1rem;
-        }
-        .click-hint {
-            font-family: 'Caveat', cursive;
-            text-align: center;
-            color: #fff;
-            margin-top: 8px;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            animation: pulse 1.5s infinite alternate;
-        }
-        @keyframes pulse {
-            100% { opacity: 0.4; transform: translateY(2px); }
-        }
-
-        /* --- Full Screen Secret Letter Modal --- */
+        /* Modal Surat */
         #modal-letter-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: rgba(18, 11, 8, 0.95);
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(22, 20, 19, 0.85); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s;
+            display: flex; justify-content: center; align-items: center;
         }
-        #modal-letter-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .letter-paper {
-            background-color: var(--paper-cream);
-            width: 90%;
-            max-width: 700px;
-            height: 85vh;
-            padding: 50px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            border-radius: 4px;
-            transform: scale(0.85) rotate(-2deg);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            overflow-y: auto;
+        #modal-letter-overlay.active { opacity: 1; visibility: visible; }
+        .letter-stationery {
+            background-color: var(--paper-white); width: 90%; max-width: 620px; padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-radius: 3px;
+            transform: scale(0.9) rotate(-1deg); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 100% 30px; line-height: 30px;
             position: relative;
-            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
-            background-size: 100% 28px;
-            line-height: 28px;
         }
-        #modal-letter-overlay.active .letter-paper {
-            transform: scale(1) rotate(0deg);
+        #modal-letter-overlay.active .letter-stationery { transform: scale(1) rotate(0deg); }
+        .letter-content { font-family: 'Special Elite', serif; font-size: 1.05rem; color: #2d2524; text-align: justify; }
+        .letter-header { font-family: 'Caveat', cursive; font-size: 2.4rem; margin-bottom: 25px; color: var(--rose-gold); font-weight: bold; }
+        .close-badge {
+            position: absolute; top: -18px; right: -18px; background: #1c1a19; color: #fff; border: none;
+            width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
         }
-        .letter-content {
-            font-family: 'Special Elite', cursive;
-            font-size: 1rem;
-            color: var(--ink);
-            text-align: justify;
-        }
-        .letter-header {
-            font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: var(--terracotta);
-            line-height: 1.2;
-        }
-        .letter-signature {
-            font-family: 'Caveat', cursive;
-            font-size: 2rem;
-            text-align: right;
-            margin-top: 30px;
-            color: var(--terracotta);
-        }
-        .close-letter-btn {
-            position: absolute;
-            top: 20px; right: 20px;
-            background-color: var(--terracotta);
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Courier Prime', monospace;
-            font-weight: bold;
-            font-size: 0.8rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.2s;
-            z-index: 10;
-        }
-        .close-letter-btn:hover {
-            background-color: var(--ink);
-            transform: translateY(-2px);
-        }
+        .close-badge:hover { transform: scale(1.1) rotate(90deg); }
 
-        /* --- Cursor Trail & Background Particle Canvas --- */
-        #particle-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 1; /* Di belakang konten utama */
-        }
+        /* Canvas & Footer */
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
+        .footer-text { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: rgba(0,0,0,0.4); z-index: 5; font-family: 'Courier Prime'; letter-spacing: 1px; }
 
-        /* Footer */
-        .footer-text {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.4);
-            z-index: 5;
-            font-family: 'Courier Prime', monospace;
-            letter-spacing: 1px;
-        }
+        @keyframes noteBounce { 0% { transform: translate(-50%, 0) scale(0.9); } 100% { transform: translate(-50%, -12px) scale(1.1); } }
     </style>
 </head>
 <body>
 
     <canvas id="particle-canvas"></canvas>
-
-    <div id="yt-player-container" style="position: absolute; top: -9999px; left: -9999px; width: 1px; height: 1px;"></div>
+    <div id="yt-player-container"></div>
 
     <div id="cover-landing">
-        <div class="book-cover">
-            <p class="book-cover-subtitle">BIKININAJA PRESENTS</p>
-            <h1 class="book-cover-title">Khusus Untuk<br>Mezha 🤍</h1>
-            <p class="handwriting" style="font-size: 1.8rem; color: var(--blush-pink); margin-top: 15px; margin-bottom: 30px;">
-                Sebuah perayaan sederhana satu tahun kebersamaan.
-            </p>
-            <button class="open-btn" onclick="startEverything()">Buka Jurnal Cinta ✨</button>
+        <div class="wood-overlay"></div>
+        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Red_Rose.png/800px-Red_Rose.png" alt="Rose" class="landing-rose">
+        
+        <div class="landing-envelope">
+            <div class="landing-seal">M</div>
+        </div>
+
+        <div class="landing-card">
+            <div class="landing-card-title">Happy</div>
+            <div class="landing-card-title">Anniversary</div>
+            <div class="landing-card-subtitle">Untuk Mezha 🤍</div>
+            <button class="open-btn" onclick="startEverything()">Buka Jurnal ✨</button>
+        </div>
+
+        <div class="landing-coffee">
+            <div class="steam"></div>
+            <div class="steam"></div>
         </div>
     </div>
 
     <div id="workspace">
+
+        <div class="envelope-craft" onclick="openSecretLetter()">
+            <div class="wax-seal-3d">M</div>
+        </div>
         
-        <div class="journal-container">
-            
-            <div class="journal-page page-left">
-                <div class="journal-title-box">
-                    <h1 class="journal-title">Happy 1st<br>Anniversary,<br>Mezha 🤍</h1>
-                    <p class="journal-date">2 Juni 2025 - 2 Juni 2026</p>
+        <div class="scrapbook-binder" id="main-binder">
+            <div class="binder-spine">
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
+                <div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div><div class="ring-3d"></div>
+            </div>
+
+            <svg class="string-layer" id="string-svg">
+                <path id="thread-line" d="" fill="none" stroke="#fff5ea" stroke-width="3.8" stroke-dasharray="4, 3" stroke-linecap="round" filter="drop-shadow(-2px 4px 3px rgba(0,0,0,0.25))"/>
+            </svg>
+
+            <div class="page-sheet sheet-left">
+                <div class="journal-narrative" id="narrative-box">
+                    <span style="font-size: 2.2rem; color: #fff; font-weight: bold; display:block; margin-bottom:5px;">Satu Tahun Kita.</span>
+                    Sentuh lembaran foto polaroid di sebelah kanan untuk menyusuri jejak utasan benang waktu kita berdua...
                 </div>
 
-                <div class="story-container">
-                    <div class="memory-note" id="dynamic-note">
-                        <div class="memory-note-title" id="note-title">Lembaran Memori</div>
-                        <p id="note-body">Klik salah satu polaroid di halaman sebelah kanan untuk membaca memori indah dan pesan rahasia kita di bulan itu. Benang-benang itu melambangkan utasan waktu kita.</p>
-                    </div>
+                <div class="polaroid-card" id="p1" onclick="showMemory(1)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p1" style="top: 8px; left: 50%;"></div>
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=250&q=80" alt="Bulan 1">
+                    <div class="polaroid-caption">Awal Mula 🤍</div>
+                </div>
+
+                <div class="polaroid-card" id="p2" onclick="showMemory(2)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p2" style="top: 8px; right: 8px;"></div>
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=250&q=80" alt="Bulan 2">
+                    <div class="polaroid-caption">Tawa Lepas ☕</div>
                 </div>
             </div>
 
-            <div class="journal-page page-right">
-                <svg class="string-svg-container" id="string-svg">
-                    <path id="thread-line" d="" fill="none" stroke="var(--string-color)" stroke-width="3.5" stroke-dasharray="2, 4" stroke-linecap="round"/>
-                </svg>
+            <div class="page-sheet sheet-right">
+                <div class="polaroid-card" id="p3" onclick="showMemory(3)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p3" style="top: 8px; left: 8px;"></div>
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=250&q=80" alt="Bulan 3">
+                    <div class="polaroid-caption">Saling Sandar 🫂</div>
+                </div>
 
-                <div class="polaroids-workspace">
-                    <div class="polaroid-item">
-                        <div class="pin-point" id="pin-p1" style="top: 15px; left: calc(50% - 6px);"></div>
-                        <div class="polaroid" id="p1" onclick="showMemory(1)">
-                            <img src="https://images.unsplash.com/photo-1518199266791-5375a8316d10?auto=format&fit=crop&w=250&q=80" alt="Bulan Pertama">
-                            <div class="polaroid-caption">Bulan 1: Awal Mulanya</div>
-                        </div>
-                    </div>
-
-                    <div class="polaroid-item">
-                        <div class="pin-point" id="pin-p2" style="top: 15px; left: calc(50% - 6px);"></div>
-                        <div class="polaroid" id="p2" onclick="showMemory(2)">
-                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=250&q=80" alt="Bulan Kedua">
-                            <div class="polaroid-caption">Bulan 2: Tawa Hangat</div>
-                        </div>
-                    </div>
-
-                    <div class="polaroid-item">
-                        <div class="pin-point" id="pin-p3" style="top: 15px; left: calc(50% - 6px);"></div>
-                        <div class="polaroid" id="p3" onclick="showMemory(3)">
-                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=250&q=80" alt="Bulan Ketiga">
-                            <div class="polaroid-caption">Bulan 3: Kenyamanan</div>
-                        </div>
-                    </div>
-
-                    <div class="polaroid-item">
-                        <div class="pin-point" id="pin-p4" style="top: 15px; left: calc(50% - 6px);"></div>
-                        <div class="polaroid" id="p4" onclick="showMemory(4)">
-                            <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=250&q=80" alt="Bulan Keempat">
-                            <div class="polaroid-caption">Bulan 4: Selamanya</div>
-                        </div>
-                    </div>
+                <div class="polaroid-card" id="p4" onclick="showMemory(4)">
+                    <div class="gold-corner g-tl"></div><div class="gold-corner g-tr"></div>
+                    <div class="gold-corner g-bl"></div><div class="gold-corner g-br"></div>
+                    <div class="anchor-dot" id="pin-p4" style="bottom: 25px; left: 50%;"></div>
+                    <img src="https://images.unsplash.com/photo-1494774112356-9a2e6f477eeb?auto=format&fit=crop&w=250&q=80" alt="Bulan 4">
+                    <div class="polaroid-caption">Satu Tahun ✨</div>
                 </div>
             </div>
-
         </div>
 
-        <div class="desk-accessories">
-            
-            <div class="counter-card">
-                <div class="counter-title">KITA TELAH BERSAMA SELAMA</div>
-                <div class="counter-grid">
-                    <div class="counter-box">
-                        <div class="counter-val" id="days">00</div>
-                        <div class="counter-lbl">Hari</div>
-                    </div>
-                    <div class="counter-box">
-                        <div class="counter-val" id="hours">00</div>
-                        <div class="counter-lbl">Jam</div>
-                    </div>
-                    <div class="counter-box">
-                        <div class="counter-val" id="minutes">00</div>
-                        <div class="counter-lbl">Menit</div>
-                    </div>
-                    <div class="counter-box">
-                        <div class="counter-val" id="seconds">00</div>
-                        <div class="counter-lbl">Detik</div>
-                    </div>
-                </div>
-            </div>
+        <div class="headphone-3d" id="headphone-btn" onclick="toggleAudio()" title="Putar Lagu Gadis Manis Kalimantan">
+            <div class="headband"></div>
+            <div class="earpad earpad-left"></div>
+            <div class="earpad earpad-right"></div>
+            <i class="fa-solid fa-music music-pulse"></i>
+            <svg class="cable-svg" viewBox="0 0 180 90">
+                <path d="M 0 10 C 40 120, 120 -30, 180 80" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+        </div>
 
-            <div class="cassette-player">
-                <div class="tape-label">
-                    <div class="song-title">Senyum Tipis Nan Menawan</div>
-                    <div class="song-artist">Gadis Manis Kalimantan (Maca fvnky)</div>
-                </div>
-                <div class="tape-window">
-                    <div class="spindle" id="spindle-l"></div>
-                    <div class="spindle" id="spindle-r"></div>
-                </div>
-                <div class="audio-controls">
-                    <button class="btn-control" id="play-pause-btn" onclick="toggleAudio()">
-                        <i class="fa-solid fa-play" id="play-icon"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="sharpy-marker">
+            <div class="sharpy-cap"></div>
+            <div class="sharpy-clip"></div>
+        </div>
 
-            <div class="envelope-container" onclick="openSecretLetter()">
-                <div class="envelope-v2">
-                    <div class="envelope-flap-decor"></div>
-                    <div class="seal-wax">M</div>
-                </div>
-                <div class="click-hint">Sentuh segel lilin untuk membuka surat...</div>
-            </div>
+        <div class="scissors-3d">
+            <div class="blade blade-1"></div>
+            <div class="blade blade-2"></div>
+            <div class="pivot-screw"></div>
+            <div class="handle handle-1"></div>
+            <div class="handle handle-2"></div>
+        </div>
 
+        <div class="notepad-sheet">
+            <div class="pushpin-3d"></div>
+            <h3>Waktu Bersama</h3>
+            <div class="counter-row" id="c-days">00 Hari</div>
+            <div class="counter-row" id="c-hours">00 Jam</div>
+            <div class="counter-row" id="c-mins">00 Menit</div>
+            <div class="counter-row" id="c-secs">00 Detik</div>
         </div>
 
     </div>
 
     <div id="modal-letter-overlay">
-        <div class="letter-paper">
-            <button class="close-letter-btn" onclick="closeSecretLetter()">Kembali ke Meja ↩</button>
+        <div class="letter-stationery">
+            <button class="close-badge" onclick="closeSecretLetter()"><i class="fa-solid fa-times"></i></button>
             <div class="letter-header">Untuk Mezha, rumah ternyamanku...</div>
             <div class="letter-content">
-                <p>Mezha, selamat satu tahun hubungan kita. Jika diletakkan di atas kertas jurnal ini, setiap detik bersamamu rasanya berharga seperti goresan tinta terbaik.</p>
-                <br>
-                <p>Mulai dari percakapan acak, malam-malam di mana kita bercerita tanpa akhir, hingga keheningan nyaman yang kita bagi berdua, semuanya telah menyusun utasan takdir baru yang teramat indah di hidupku.</p>
-                <br>
-                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia, melainkan tertanam menjadi kenangan abadi.</p>
-                <br>
-                <p>Aku mencintaimu, kemarin, hari ini, esok, dan di masa-masa depan yang akan kita jahit bersama.</p>
+                <p>Mezha, selamat satu tahun hubungan kita. Jika diletakkan di atas meja penuh kenangan ini, setiap detik bersamamu rasanya berharga seperti goresan tinta terbaik.</p><br>
+                <p>Mulai dari percakapan acak, malam-malam di mana kita bercerita tanpa akhir, hingga keheningan nyaman yang kita bagi berdua, semuanya telah menyusun utasan takdir baru yang teramat indah di hidupku.</p><br>
+                <p>Terima kasih telah menerima segala kurangku, menghangatkan hariku dengan senyummu, dan selalu percaya pada kita. Bersamamu, aku merasa waktu tidak pernah terbuang sia-sia.</p>
             </div>
-            <div class="letter-signature">Raihan yang menyayangimu selalu, 🤍</div>
+            <div class="handwriting" style="font-size: 2.2rem; text-align: right; margin-top: 25px; color: var(--rose-gold); font-weight:bold;">Raihan yang menyayangimu selalu, 🤍</div>
         </div>
     </div>
 
@@ -765,125 +433,59 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // --- INTEGRASI LAGU DARI YOUTUBE (HIDDEN PLAYER) ---
+        // --- YOUTUBE API ---
         let ytPlayer;
         let isPlayerReady = false;
         let playWhenReady = false;
 
         function onYouTubeIframeAPIReady() {
             ytPlayer = new YT.Player('yt-player-container', {
-                height: '0',
-                width: '0',
-                videoId: 'g_xAVabfIOI', // ID Video YouTube yang diminta
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'modestbranding': 1,
-                    'playsinline': 1,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
+                height: '0', width: '0',
+                videoId: 'g_xAVabfIOI',
+                playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
         }
 
         function onPlayerReady(event) {
             isPlayerReady = true;
-            if (playWhenReady) {
-                ytPlayer.playVideo();
-            }
+            if (playWhenReady) ytPlayer.playVideo();
         }
 
-        // Fungsi tersinkronisasi pemutar kaset dengan status asli YouTube Player
-        const playIcon = document.getElementById('play-icon');
-        const spindleL = document.getElementById('spindle-l');
-        const spindleR = document.getElementById('spindle-r');
+        const headphoneBtn = document.getElementById('headphone-btn');
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
-                playIcon.className = "fa-solid fa-pause";
-                spindleL.classList.add('playing');
-                spindleR.classList.add('playing');
+                headphoneBtn.classList.add('playing');
             } else {
-                playIcon.className = "fa-solid fa-play";
-                spindleL.classList.remove('playing');
-                spindleR.classList.remove('playing');
+                headphoneBtn.classList.remove('playing');
             }
         }
 
         function toggleAudio() {
             if (!isPlayerReady) return;
-            const state = ytPlayer.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
+            if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
                 ytPlayer.pauseVideo();
             } else {
                 ytPlayer.playVideo();
             }
         }
 
-        // Pemicu saat tombol "Buka Jurnal Cinta" ditekan
         function startEverything() {
             document.getElementById('cover-landing').style.opacity = '0';
             document.getElementById('cover-landing').style.visibility = 'hidden';
-            
-            // Putar audio secara langsung untuk menghindari block browser
             if (isPlayerReady) {
                 ytPlayer.playVideo();
             } else {
-                playWhenReady = true; // Jika api belum termuat, tandai untuk diputar nanti
+                playWhenReady = true; 
             }
-
-            // Hitung dan gambar benang setelah layout dirender stabil
-            setTimeout(drawThread, 100);
+            setTimeout(drawThread, 300);
         }
 
-        // --- DATA MEMORI UNTUK TIAP BULAN ---
-        const memories = {
-            1: {
-                title: "Bulan 1: Percikan Pertama",
-                text: "Ingat saat obrolan pertama kita? Rasanya dunia yang awalnya bising mendadak jadi sunyi, hanya ada tawa kita berdua. Di sinilah utasan pertama ini mulai kita pintal dengan penuh harapan."
-            },
-            2: {
-                title: "Bulan 2: Secangkir Kebersamaan",
-                text: "Jalan santai sore hari, menikmati secangkir kopi, dan mencari kuliner yang lucu. Kita mulai menyadari bahwa hal paling sederhana pun menjadi istimewa luar biasa saat dijalani bersamamu."
-            },
-            3: {
-                title: "Bulan 3: Pelukan Nyaman",
-                text: "Bukan hanya kesenangan, di bulan ini kita mulai membagi kelelahan hidup dan saling menguatkan. Kamu adalah satu-satunya tempat bersandar yang tak pernah gagal mengembalikan senyumku."
-            },
-            4: {
-                title: "Bulan 4: Langkah Sejajar",
-                text: "Menjelang 365 hari kita. Kini langkah kita sudah begitu sejajar. Terima kasih telah berjalan bersamaku sejauh ini, Mezha. Mari terus merajut benang-benang hari esok bersama-sama."
-            }
-        };
-
-        function showMemory(month) {
-            document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
-            const targetPolaroid = document.getElementById(`p${month}`);
-            targetPolaroid.classList.add('active');
-
-            const note = document.getElementById('dynamic-note');
-            const noteTitle = document.getElementById('note-title');
-            const noteBody = document.getElementById('note-body');
-
-            note.style.opacity = 0;
-            setTimeout(() => {
-                noteTitle.innerText = memories[month].title;
-                noteBody.innerText = memories[month].text;
-                note.style.opacity = 1;
-            }, 200);
-        }
-
-        // --- SISTEM PARTIKEL BACKGROUND (Hati) & CURSOR TRAIL (Serbuk Cahaya/Sparkles) ---
+        // --- PARTICLE CANVAS (MENGHILANG DENGAN SANGAT SOFT) ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-
-        let bgHearts = [];
-        let trailParticles = [];
+        let particles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -892,158 +494,125 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Kelas untuk Partikel Hati (Hanya Background)
-        class Heart {
+        class Sparkle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 8 + 6;
-                this.speedY = -(Math.random() * 1 + 0.5); // Naik ke atas
-                this.speedX = (Math.random() * 0.6 - 0.3);
+                this.size = Math.random() * 3.5 + 1.5;
+                this.vx = (Math.random() * 1.6 - 0.8);
+                this.vy = (Math.random() * 1.6 - 0.8);
                 this.alpha = 1;
-                this.decay = 0.005;
-                this.color = `rgba(178, 108, 108, ${Math.random() * 0.4 + 0.2})`; // Warna rose gold transparan
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                const topY = this.y - this.size / 2;
-                ctx.moveTo(this.x, this.y + this.size / 4);
-                ctx.bezierCurveTo(this.x - this.size / 2, topY, this.x - this.size, topY + this.size / 3, this.x, this.y + this.size);
-                ctx.bezierCurveTo(this.x + this.size, topY + this.size / 3, this.x + this.size / 2, topY, this.x, this.y + this.size / 4);
-                ctx.fill();
-                ctx.restore();
+                this.decay = 0.93; // Exponential decay sangat halus
             }
             update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.alpha -= this.decay;
-            }
-        }
-
-        // Kelas untuk Partikel Jejak Kursor (Serbuk Cahaya Emas Pudar)
-        class GlowSparkle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 3 + 1.5;
-                this.speedY = (Math.random() * 1.5 - 0.75); // Melayang acak perlahan
-                this.speedX = (Math.random() * 1.5 - 0.75);
-                this.alpha = 1;
-                this.decay = 0.03; // Menghilang lebih cepat dari hati
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.98; 
+                this.vy *= 0.98;
+                this.alpha *= this.decay;
+                this.size *= 0.97; 
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = '#fce4cd'; // Warna serbuk emas hangat
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = '#fce4cd'; // Efek glow
+                ctx.globalCompositeOperation = 'screen'; 
+                ctx.fillStyle = 'rgba(239, 211, 155, ' + this.alpha + ')'; 
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = '#eed49f';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.restore();
             }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.alpha -= this.decay;
-            }
         }
 
-        function spawnBackgroundHearts() {
-            if (bgHearts.length < 35) {
-                bgHearts.push(new Heart(Math.random() * canvas.width, canvas.height + 20));
-            }
-        }
-
-        // Event listener mousemove untuk membangkitkan Serbuk Cahaya (GlowSparkle)
         window.addEventListener('mousemove', (e) => {
-            if (Math.random() < 0.6) {
-                trailParticles.push(new GlowSparkle(e.clientX, e.clientY));
+            if (Math.random() < 0.5) {
+                particles.push(new Sparkle(e.clientX, e.clientY));
             }
         });
 
-        function animateParticles() {
+        function loopParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            spawnBackgroundHearts();
-
-            // Render background hearts
-            for (let i = bgHearts.length - 1; i >= 0; i--) {
-                bgHearts[i].update();
-                bgHearts[i].draw();
-                if (bgHearts[i].alpha <= 0) bgHearts.splice(i, 1);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha < 0.01) {
+                    particles.splice(i, 1);
+                }
             }
-
-            // Render mouse trail (Serbuk Cahaya)
-            for (let i = trailParticles.length - 1; i >= 0; i--) {
-                trailParticles[i].update();
-                trailParticles[i].draw();
-                if (trailParticles[i].alpha <= 0) trailParticles.splice(i, 1);
-            }
-
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(loopParticles);
         }
-        animateParticles();
+        loopParticles();
 
-        // --- INTERAKTIVITAS UTASAN BENANG TIMELINE (SVG PATH DYNAMIC) ---
+        // --- BUKU BINDER & UTASAN SVG ---
+        const memories = {
+            1: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 1: Percikan Pertama</span><br>Ingat obrolan pertama kita? Dunia yang bising mendadak jadi sunyi. Di sinilah utasan takdir ini mulai kita pintal...",
+            2: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 2: Secangkir Kebersamaan</span><br>Jalan santai sore, kopi hangat, dan kuliner acak. Hal sederhana berubah menjadi luar biasa saat dijalani bersamamu.",
+            3: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 3: Saling Sandar</span><br>Bukan hanya kesenangan, kita mulai membagi kelelahan hidup. Kamu adalah tempat pulang terbaik yang tak pernah gagal.",
+            4: "<span style='font-size: 1.8rem; font-weight:bold; color: #b26c6c;'>Bulan 4: Langkah Sejajar</span><br>Menjelang 365 hari kita. Langkah kaki kita sudah sejajar sempurna. Mari terus menjahit hari esok bersama, Mezha."
+        };
+
+        function showMemory(month) {
+            document.querySelectorAll('.polaroid-card').forEach(p => p.classList.remove('active'));
+            document.getElementById(`p${month}`).classList.add('active');
+
+            const narrative = document.getElementById('narrative-box');
+            narrative.style.opacity = 0;
+            setTimeout(() => {
+                narrative.innerHTML = memories[month];
+                narrative.style.opacity = 1;
+            }, 200);
+        }
+
         function drawThread() {
             const svgPath = document.getElementById('thread-line');
-            
+            const container = document.getElementById('string-svg').getBoundingClientRect();
+            const binder = document.getElementById('main-binder').getBoundingClientRect();
+
             const p1 = document.getElementById('pin-p1').getBoundingClientRect();
             const p2 = document.getElementById('pin-p2').getBoundingClientRect();
             const p3 = document.getElementById('pin-p3').getBoundingClientRect();
             const p4 = document.getElementById('pin-p4').getBoundingClientRect();
-            const container = document.getElementById('string-svg').getBoundingClientRect();
 
-            const pt1 = { x: p1.left + 6 - container.left, y: p1.top + 6 - container.top };
-            const pt2 = { x: p2.left + 6 - container.left, y: p2.top + 6 - container.top };
-            const pt3 = { x: p3.left + 6 - container.left, y: p3.top + 6 - container.top };
-            const pt4 = { x: p4.left + 6 - container.left, y: p4.top + 6 - container.top };
+            const pt1 = { x: p1.left + 3 - container.left, y: p1.top + 3 - container.top };
+            const pt2 = { x: p2.left + 3 - container.left, y: p2.top + 3 - container.top };
+            const pt3 = { x: p3.left + 3 - container.left, y: p3.top + 3 - container.top };
+            const pt4 = { x: p4.left + 3 - container.left, y: p4.top + 3 - container.top };
+
+            const centerSpineX = binder.width / 2;
 
             const pathData = `
                 M ${pt1.x} ${pt1.y} 
-                Q ${(pt1.x + pt2.x)/2 + 20} ${(pt1.y + pt2.y)/2 - 30}, ${pt2.x} ${pt2.y}
+                Q ${pt1.x + 60} ${pt1.y + 110}, ${pt2.x} ${pt2.y}
+                S ${centerSpineX} ${pt3.y - 60}, ${pt3.x} ${pt3.y}
                 T ${pt4.x} ${pt4.y}
-                Q ${(pt4.x + pt3.x)/2 - 30} ${(pt4.y + pt3.y)/2 + 20}, ${pt3.x} ${pt3.y}
             `;
             svgPath.setAttribute('d', pathData);
         }
 
-        // --- SISTEM PEMBUKA SURAT RAHASIA (MODAL FULL SCREEN) ---
-        function openSecretLetter() {
-            document.getElementById('modal-letter-overlay').classList.add('active');
-        }
+        function openSecretLetter() { document.getElementById('modal-letter-overlay').classList.add('active'); }
+        function closeSecretLetter() { document.getElementById('modal-letter-overlay').classList.remove('active'); }
 
-        function closeSecretLetter() {
-            document.getElementById('modal-letter-overlay').classList.remove('active');
-        }
-
-        // --- LIVE COUNTER KEBERSAMAAN ---
+        // --- LIVE COUNTER ---
         const anniversaryDate = new Date("2025-06-02T00:00:00").getTime(); 
 
         function updateCounter() {
             const now = new Date().getTime();
             const distance = now - anniversaryDate;
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = String(Math.max(0, days)).padStart(2, '0');
-            document.getElementById("hours").innerText = String(Math.max(0, hours)).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(Math.max(0, minutes)).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(Math.max(0, seconds)).padStart(2, '0');
+            document.getElementById("c-days").innerText = String(Math.max(0, days)).padStart(2, '0') + " Hari";
+            document.getElementById("c-hours").innerText = String(Math.max(0, hours)).padStart(2, '0') + " Jam";
+            document.getElementById("c-mins").innerText = String(Math.max(0, minutes)).padStart(2, '0') + " Menit";
+            document.getElementById("c-secs").innerText = String(Math.max(0, seconds)).padStart(2, '0') + " Detik";
         }
-        setInterval(updateCounter, 1000);
-        updateCounter();
+        setInterval(updateCounter, 1000); updateCounter();
 
-        window.addEventListener('resize', () => {
-            setTimeout(drawThread, 150);
-        });
+        window.addEventListener('resize', () => { setTimeout(drawThread, 150); });
     </script>
 </body>
 </html>
